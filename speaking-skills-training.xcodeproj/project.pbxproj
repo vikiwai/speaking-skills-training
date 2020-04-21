@@ -62,8 +62,8 @@
 				5BC63E4A244F495B00433563 /* SceneDelegate.swift */,
 				5BC63E4C244F495B00433563 /* ViewController.swift */,
 				5BC63E4E244F495B00433563 /* Main.storyboard */,
-				5BC63E54244F496100433563 /* Assets.xcassets */,
 				5BC63E56244F496100433563 /* LaunchScreen.storyboard */,
+				5BC63E54244F496100433563 /* Assets.xcassets */,
 				5BC63E59244F496100433563 /* Info.plist */,
 				5BC63E51244F495B00433563 /* speaking_skills_training.xcdatamodeld */,
 			);
