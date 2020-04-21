@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="speaking_skills_training" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="speaking_skills_training" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,11 +43,22 @@
                     <connections>
                         <outlet property="label" destination="wdT-bb-AG7" id="KOH-Lf-eqt"/>
                         <outlet property="logo" destination="y8I-S0-gxQ" id="jlv-Na-OMK"/>
+                        <segue destination="ycD-e8-gbn" kind="showDetail" identifier="1" animates="NO" id="Gve-AH-AtM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140.57971014492756" y="126.5625"/>
+        </scene>
+        <!--Authorization-->
+        <scene sceneID="dJQ-30-VFv">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Authorization" storyboardName="Authorization" id="ycD-e8-gbn" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="vn6-BP-06G"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="idf-8t-xU6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="762" y="127"/>
         </scene>
     </scenes>
     <resources>
