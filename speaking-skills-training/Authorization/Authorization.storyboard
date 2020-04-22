@@ -42,6 +42,7 @@
                                 </state>
                                 <connections>
                                     <action selector="signIn:" destination="pFA-5e-hlv" eventType="touchUpInside" id="20c-08-HPv"/>
+                                    <segue destination="mND-Oy-0up" kind="showDetail" identifier="4" animates="NO" id="rlJ-KP-rfi"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOJ-bf-wbb">
@@ -97,6 +98,14 @@
             </objects>
             <point key="canvasLocation" x="-130.43478260869566" y="0.6696428571428571"/>
         </scene>
+        <!--Account-->
+        <scene sceneID="TsE-jB-54M">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Account" storyboardName="Account" id="mND-Oy-0up" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1u2-l7-kha" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="549" y="-94"/>
+        </scene>
         <!--Registration-->
         <scene sceneID="c1b-2j-1Ei">
             <objects>
@@ -105,7 +114,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I9E-lc-T0k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="548" y="1"/>
+            <point key="canvasLocation" x="565" y="74"/>
         </scene>
     </scenes>
 </document>
