@@ -10,6 +10,16 @@ import UIKit
 
 class RegistrationViewController: UIViewController {
 
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var loginTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var reenteredPasswordTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBAction func signUp(_ sender: Any) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rup-ah-6fc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -60,6 +60,9 @@
                                 <state key="normal" title="Sign up">
                                     <color key="titleColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUp:" destination="rup-ah-6fc" eventType="touchUpInside" id="rz6-tk-1Ct"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.76590330279999996" blue="0.86434232789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -90,6 +93,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EsK-Ge-4gV"/>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="ET4-my-ZPB" id="sRR-DX-riT"/>
+                        <outlet property="firstNameTextField" destination="cZ4-Mc-i0V" id="y5n-gL-4rz"/>
+                        <outlet property="lastNameTextField" destination="jqc-al-v1C" id="ywI-qQ-Nfv"/>
+                        <outlet property="loginTextField" destination="Bsi-Gn-JJ2" id="0I6-If-B8z"/>
+                        <outlet property="passwordTextField" destination="cvC-no-FPu" id="lRi-Fe-z1H"/>
+                        <outlet property="reenteredPasswordTextField" destination="bdO-cj-W2u" id="yJk-9G-moh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUR-YZ-Aw0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

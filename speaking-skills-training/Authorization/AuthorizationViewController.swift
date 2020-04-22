@@ -10,6 +10,23 @@ import UIKit
 
 class AuthorizationViewController: UIViewController {
 
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    
+    @IBAction func signIn(_ sender: Any) {
+        if usernameTextField.text != "" && passwordTextField.text != "" {
+            // successful
+        }
+    }
+    
+    @IBAction func signUp(_ sender: Any) {
+        // user doesn't exist
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Authorization", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Registration")
+        self.present(newViewController, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

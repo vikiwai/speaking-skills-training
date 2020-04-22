@@ -40,6 +40,9 @@
                                 <state key="normal" title="Sign in">
                                     <color key="titleColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="signIn:" destination="pFA-5e-hlv" eventType="touchUpInside" id="20c-08-HPv"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOJ-bf-wbb">
                                 <rect key="frame" x="73" y="491" width="194" height="34"/>
@@ -56,6 +59,10 @@
                                 <state key="normal" title="Sign up">
                                     <color key="titleColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUp:" destination="pFA-5e-hlv" eventType="touchUpInside" id="Ivl-Ir-rON"/>
+                                    <segue destination="kxZ-gk-d4r" kind="showDetail" identifier="2" animates="NO" id="0XI-zk-eKo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.76590330279999996" blue="0.86434232789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -81,10 +88,24 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2xg-Qs-Ffs"/>
                     </view>
+                    <connections>
+                        <outlet property="passwordTextField" destination="hVk-Fd-0dX" id="YLV-BA-oaU"/>
+                        <outlet property="usernameTextField" destination="Jfo-6G-2f0" id="JaM-qO-ZVW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6xo-N4-OTD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-130.43478260869566" y="0.6696428571428571"/>
+        </scene>
+        <!--Registration-->
+        <scene sceneID="c1b-2j-1Ei">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Registration" storyboardName="Registration" id="kxZ-gk-d4r" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="GUT-w1-3RE"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I9E-lc-T0k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="548" y="1"/>
         </scene>
     </scenes>
 </document>
