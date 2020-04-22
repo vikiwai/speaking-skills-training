@@ -18,6 +18,8 @@
 		5BC63E65244F59CB00433563 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E64244F59CB00433563 /* AuthorizationViewController.swift */; };
 		5BC63E67244F59E200433563 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC63E66244F59E200433563 /* Registration.storyboard */; };
 		5BC63E69244F59F400433563 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E68244F59F400433563 /* RegistrationViewController.swift */; };
+		5BC63E6B24505EA700433563 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC63E6A24505EA700433563 /* Account.storyboard */; };
+		5BC63E6D24505ED400433563 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E6C24505ED400433563 /* AccountViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		5BC63E64244F59CB00433563 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		5BC63E66244F59E200433563 /* Registration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
 		5BC63E68244F59F400433563 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		5BC63E6A24505EA700433563 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
+		5BC63E6C24505ED400433563 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 		5BC63E61244F598700433563 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				5BC63E6A24505EA700433563 /* Account.storyboard */,
+				5BC63E6C24505ED400433563 /* AccountViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -168,6 +174,7 @@
 				5BC63E63244F59B100433563 /* Authorization.storyboard in Resources */,
 				5BC63E58244F496100433563 /* LaunchScreen.storyboard in Resources */,
 				5BC63E55244F496100433563 /* Assets.xcassets in Resources */,
+				5BC63E6B24505EA700433563 /* Account.storyboard in Resources */,
 				5BC63E50244F495B00433563 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,6 +188,7 @@
 			files = (
 				5BC63E69244F59F400433563 /* RegistrationViewController.swift in Sources */,
 				5BC63E4D244F495B00433563 /* ViewController.swift in Sources */,
+				5BC63E6D24505ED400433563 /* AccountViewController.swift in Sources */,
 				5BC63E49244F495B00433563 /* AppDelegate.swift in Sources */,
 				5BC63E4B244F495B00433563 /* SceneDelegate.swift in Sources */,
 				5BC63E65244F59CB00433563 /* AuthorizationViewController.swift in Sources */,
