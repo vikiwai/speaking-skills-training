@@ -20,6 +20,8 @@
 		5BC63E69244F59F400433563 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E68244F59F400433563 /* RegistrationViewController.swift */; };
 		5BC63E6B24505EA700433563 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC63E6A24505EA700433563 /* Account.storyboard */; };
 		5BC63E6D24505ED400433563 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E6C24505ED400433563 /* AccountViewController.swift */; };
+		5BC63E6F2452510800433563 /* LessonsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E6E2452510800433563 /* LessonsTableViewController.swift */; };
+		5BC63E712452514700433563 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E702452514700433563 /* StatisticsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		5BC63E68244F59F400433563 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		5BC63E6A24505EA700433563 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		5BC63E6C24505ED400433563 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		5BC63E6E2452510800433563 /* LessonsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsTableViewController.swift; sourceTree = "<group>"; };
+		5BC63E702452514700433563 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 			children = (
 				5BC63E6A24505EA700433563 /* Account.storyboard */,
 				5BC63E6C24505ED400433563 /* AccountViewController.swift */,
+				5BC63E6E2452510800433563 /* LessonsTableViewController.swift */,
+				5BC63E702452514700433563 /* StatisticsViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -188,9 +194,11 @@
 			files = (
 				5BC63E69244F59F400433563 /* RegistrationViewController.swift in Sources */,
 				5BC63E4D244F495B00433563 /* ViewController.swift in Sources */,
+				5BC63E6F2452510800433563 /* LessonsTableViewController.swift in Sources */,
 				5BC63E6D24505ED400433563 /* AccountViewController.swift in Sources */,
 				5BC63E49244F495B00433563 /* AppDelegate.swift in Sources */,
 				5BC63E4B244F495B00433563 /* SceneDelegate.swift in Sources */,
+				5BC63E712452514700433563 /* StatisticsViewController.swift in Sources */,
 				5BC63E65244F59CB00433563 /* AuthorizationViewController.swift in Sources */,
 				5BC63E53244F495B00433563 /* speaking_skills_training.xcdatamodeld in Sources */,
 			);
