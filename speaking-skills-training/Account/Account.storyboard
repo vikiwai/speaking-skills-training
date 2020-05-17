@@ -41,43 +41,76 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKX-c2-eGM">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKX-c2-eGM">
                                             <rect key="frame" x="20" y="11" width="313" height="50"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBO-Ig-H2H">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBO-Ig-H2H">
                                             <rect key="frame" x="20" y="58" width="313" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9JD-nQ-CVp">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9JD-nQ-CVp">
                                             <rect key="frame" x="20" y="84" width="313" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                             <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuP-VR-3Ki">
-                                            <rect key="frame" x="360" y="43" width="34" height="34"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLY-9w-bZ1">
+                                            <rect key="frame" x="344" y="11" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="ss6-gu-Ycw"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="tintColor" red="0.4346025402" green="0.092095883789999999" blue="0.44219559590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <state key="normal" image="mic.circle" catalog="system">
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="didTapRecordButton:" destination="W2O-lg-lAh" eventType="touchUpInside" id="CZ7-0G-mnC"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuP-VR-3Ki">
+                                            <rect key="frame" x="344" y="59" width="50" height="50"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="tintColor" red="0.43460254021240879" green="0.092095883787053884" blue="0.4421955958549223" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <state key="normal" image="archivebox" catalog="system"/>
+                                            <state key="normal" image="archivebox" catalog="system">
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                            </state>
                                             <connections>
                                                 <action selector="showArchive:" destination="W2O-lg-lAh" eventType="touchUpInside" id="HPf-cN-9yo"/>
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="9JD-nQ-CVp" firstAttribute="bottom" secondItem="RMc-2o-eHq" secondAttribute="bottomMargin" id="1cL-DL-wgg"/>
+                                        <constraint firstItem="NLY-9w-bZ1" firstAttribute="leading" secondItem="IuP-VR-3Ki" secondAttribute="leading" id="3eY-34-DY4"/>
+                                        <constraint firstItem="IuP-VR-3Ki" firstAttribute="top" secondItem="RMc-2o-eHq" secondAttribute="topMargin" constant="48" id="7ja-Os-uBx"/>
+                                        <constraint firstItem="NKX-c2-eGM" firstAttribute="top" secondItem="NLY-9w-bZ1" secondAttribute="top" id="9gu-ii-Voa"/>
+                                        <constraint firstItem="NKX-c2-eGM" firstAttribute="leading" secondItem="RMc-2o-eHq" secondAttribute="leadingMargin" id="FJs-bH-4jm"/>
+                                        <constraint firstItem="9JD-nQ-CVp" firstAttribute="bottom" secondItem="IuP-VR-3Ki" secondAttribute="bottom" id="I1C-WE-4w5"/>
+                                        <constraint firstItem="NKX-c2-eGM" firstAttribute="trailing" secondItem="hBO-Ig-H2H" secondAttribute="trailing" id="Ly1-Fo-Rw5"/>
+                                        <constraint firstItem="hBO-Ig-H2H" firstAttribute="trailing" secondItem="9JD-nQ-CVp" secondAttribute="trailing" id="QF7-9e-Uio"/>
+                                        <constraint firstItem="NKX-c2-eGM" firstAttribute="leading" secondItem="hBO-Ig-H2H" secondAttribute="leading" id="Qdn-m7-Yyz"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="NLY-9w-bZ1" secondAttribute="bottom" constant="48" id="Sgb-HE-fxo"/>
+                                        <constraint firstItem="9JD-nQ-CVp" firstAttribute="top" secondItem="NKX-c2-eGM" secondAttribute="bottom" constant="23" id="bIM-5S-bKY"/>
+                                        <constraint firstItem="hBO-Ig-H2H" firstAttribute="leading" secondItem="9JD-nQ-CVp" secondAttribute="leading" id="eMx-4f-USA"/>
+                                        <constraint firstItem="hBO-Ig-H2H" firstAttribute="top" secondItem="RMc-2o-eHq" secondAttribute="topMargin" constant="47" id="jFB-vv-xgP"/>
+                                        <constraint firstItem="NLY-9w-bZ1" firstAttribute="trailing" secondItem="IuP-VR-3Ki" secondAttribute="trailing" id="kTH-e6-gp7"/>
+                                        <constraint firstItem="NKX-c2-eGM" firstAttribute="top" secondItem="RMc-2o-eHq" secondAttribute="topMargin" id="laQ-pr-qN1"/>
+                                        <constraint firstItem="NKX-c2-eGM" firstAttribute="bottom" secondItem="NLY-9w-bZ1" secondAttribute="bottom" id="lj0-IV-aLO"/>
+                                        <constraint firstItem="NLY-9w-bZ1" firstAttribute="trailing" secondItem="RMc-2o-eHq" secondAttribute="trailingMargin" id="wzt-JE-x3y"/>
+                                        <constraint firstItem="NLY-9w-bZ1" firstAttribute="leading" secondItem="NKX-c2-eGM" secondAttribute="trailing" constant="11" id="xmm-LK-WaE"/>
+                                        <constraint firstItem="9JD-nQ-CVp" firstAttribute="top" secondItem="hBO-Ig-H2H" secondAttribute="bottom" constant="1" id="ygC-wf-EiY"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
-                                    <outlet property="archiveButton" destination="IuP-VR-3Ki" id="tml-ib-bj2"/>
                                     <outlet property="categoryLabel" destination="hBO-Ig-H2H" id="abf-ky-Cfb"/>
+                                    <outlet property="didTapArchiveButton" destination="IuP-VR-3Ki" id="tml-ib-bj2"/>
                                     <outlet property="levelLable" destination="9JD-nQ-CVp" id="eY9-Fb-Wkt"/>
                                     <outlet property="titleLabel" destination="NKX-c2-eGM" id="jCp-Vu-zJg"/>
                                 </connections>
@@ -141,6 +174,7 @@
         <image name="archivebox" catalog="system" width="128" height="106"/>
         <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="chart.bar.fill" catalog="system" width="128" height="89"/>
+        <image name="mic.circle" catalog="system" width="128" height="121"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>
