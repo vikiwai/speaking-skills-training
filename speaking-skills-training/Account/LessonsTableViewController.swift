@@ -10,7 +10,43 @@ import UIKit
 
 class LessonsTableViewController: UITableViewController {
 
+    // MARK: Properties
+    
+    var lessons: Array<Lesson> = Array();
+    
+    // MARK: Private methods
+    
+    private func loadSampleLessons() {
+        
+        guard let lesson1 = Lesson(title: "Describe a leisure activity that you do with your family", category: "Family topic", level: "B2") else {
+            fatalError("Unable to instantiate meal1")
+        }
+        
+        guard let lesson2 = Lesson(title: "Describe an experience when you played an indoor game with others", category: "Life topic", level: "B2") else {
+            fatalError("Unable to instantiate meal1")
+        }
+        
+        guard let lesson3 = Lesson(title: "Describe some local news that people in your locality are interested in", category: "Social topic", level: "C1") else {
+            fatalError("Unable to instantiate meal1")
+        }
+        
+        lessons += [lesson1, lesson2, lesson3]
+        
+        // MARK: TO-DO AUTO INIT
+        
+        /*
+        let countOfLessons = 3
+        
+        repeat {
+            guard let lesson = Lesson(title: <#T##String#>, category: <#T##String#>, level: <#T##String#>) else {
+                fatalError("Unable to instantiate meal1")
+            }
+        } while lessons.count != countOfLessons
+        */
+    }
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -18,29 +54,41 @@ class LessonsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // Load sample data.
+        loadSampleLessons()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return lessons.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        // Table view cells are reused and should be dequeued using a cell identifier.
+        let cellIdentifier = "LessonTableViewCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? LessonTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of LessonTableViewCell.")
+        }
 
-        // Configure the cell...
+        // Configure the cell.
+        
+        let lesson = lessons[indexPath.row]
+        
+        cell.titleLabel.text = lesson.title
+        cell.categoryLabel.text = lesson.category
+        cell.levelLable.text = lesson.level
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

@@ -10,6 +10,16 @@ import UIKit
 
 class LessonTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var levelLable: UILabel!
+    
+    @IBOutlet weak var archiveButton: UIButton!
+    
+    @IBAction func showArchive(_ sender: Any) {
+        
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
