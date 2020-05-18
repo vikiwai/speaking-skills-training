@@ -14,12 +14,16 @@ class LessonTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var levelLable: UILabel!
     
-    @IBOutlet weak var didTapArchiveButton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var archiveButton: UIButton!
+    
+    // MARK: Actions
     
     @IBAction func didTapRecordButton(_ sender: Any) {
+        
     }
     
-    @IBAction func showArchive(_ sender: Any) {
+    @IBAction func didTapArchiveButton(_ sender: Any) {
         
     }
     

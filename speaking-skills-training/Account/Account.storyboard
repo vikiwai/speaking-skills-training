@@ -23,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sNl-dm-Fzj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1251" y="-56"/>
+            <point key="canvasLocation" x="548" y="69"/>
         </scene>
         <!--Lessons-->
         <scene sceneID="8kv-LY-MIb">
@@ -71,6 +71,7 @@
                                             </state>
                                             <connections>
                                                 <action selector="didTapRecordButton:" destination="W2O-lg-lAh" eventType="touchUpInside" id="CZ7-0G-mnC"/>
+                                                <segue destination="5ML-fC-XDp" kind="presentation" identifier="toChosenTopic" id="qhR-4F-GBm"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuP-VR-3Ki">
@@ -81,7 +82,8 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </state>
                                             <connections>
-                                                <action selector="showArchive:" destination="W2O-lg-lAh" eventType="touchUpInside" id="HPf-cN-9yo"/>
+                                                <action selector="didTapArchiveButton:" destination="W2O-lg-lAh" eventType="touchUpInside" id="HPf-cN-9yo"/>
+                                                <segue destination="6aE-YN-hCo" kind="presentation" identifier="toArchiveTopics" id="mIF-gS-OqU"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -109,9 +111,10 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
+                                    <outlet property="archiveButton" destination="IuP-VR-3Ki" id="tml-ib-bj2"/>
                                     <outlet property="categoryLabel" destination="hBO-Ig-H2H" id="abf-ky-Cfb"/>
-                                    <outlet property="didTapArchiveButton" destination="IuP-VR-3Ki" id="tml-ib-bj2"/>
                                     <outlet property="levelLable" destination="9JD-nQ-CVp" id="eY9-Fb-Wkt"/>
+                                    <outlet property="recordButton" destination="NLY-9w-bZ1" id="BpV-Pb-3tT"/>
                                     <outlet property="titleLabel" destination="NKX-c2-eGM" id="jCp-Vu-zJg"/>
                                 </connections>
                             </tableViewCell>
@@ -121,13 +124,165 @@
                             <outlet property="delegate" destination="f9W-EK-xgm" id="qd6-4S-gOi"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Lessons" image="book.fill" catalog="system" selectedImage="book.fill" id="OWs-Le-Swz">
-                        <color key="badgeColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="Lessons" id="arq-1i-usk"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFJ-km-SIR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="547.82608695652175" y="-686.38392857142856"/>
+            <point key="canvasLocation" x="1458" y="-686"/>
+        </scene>
+        <!--Topic-->
+        <scene sceneID="Vly-qV-8Qg">
+            <objects>
+                <viewController id="Cbx-KL-kuC" customClass="TopicViewController" customModule="speaking_skills_training" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qQH-D8-koe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hst-6e-5L8">
+                                <rect key="frame" x="20" y="70" width="374" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6a-yv-5bu">
+                                <rect key="frame" x="20" y="130" width="374" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFC-06-Qav">
+                                <rect key="frame" x="20" y="165" width="374" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ngB-eM-Xz0">
+                                <rect key="frame" x="20" y="508" width="374" height="287"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <mutableString key="text">	I live in a rather quiet and small town, and nothing much really happens in it except some occasional bird watching (yes, many foreign birds visit it) and spending some lazy times in some local café and restaurants. Luckily, however, there is a local newspaper in my town for us to read, which provides us with local news about what happens in and around our town. So, today, I would like to talk about one such news which the local people are really interested in.
+
+	The news is about establishing a new train station in our little town, which the local people in my town had been demanding for, since the days of my childhood. Anyway, I would have missed this exciting news had one of my cousins not informed me about it. So, I immediately got a newspaper and started to read each and every word of the news, lest I missed something.
+
+	The news said many things about the future train station in my town, including how long it would take to build the train station, and how many trains would stop in that station. The news also highlighted the facts about how the local residents of my town would benefit from this railway station. In fact, many of us in our town believe that because of this train station, communication between our town and other major cities of my country would be easier, which would, in turn, increase the economic activities of our town. And, the more economic activities it has, the better would be the future employment opportunities. Besides, because of this new train station, people in my town would gain more other than just economic development from the contact with the rest of the country.
+
+	Anyway, people in my area are interested in this news, mainly because they would not feel stuck in some isolated part of their country. Besides, they also feel that it would open up many doors of opportunities for them as far as their educational, cultural and economic developments are concerned. All in all, it is a piece of great news.</mutableString>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vMS-Df-q7r">
+                                <rect key="frame" x="20" y="225" width="374" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <string key="text">	You should say: what the news is, how you know about this news, how the news involves your locality and explain why people in your area are interested in the news.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FMy-gu-M3h">
+                                <rect key="frame" x="20" y="200" width="374" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rules" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wat-Uk-Yd3">
+                                <rect key="frame" x="20" y="320" width="374" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="r42-QV-ucB">
+                                <rect key="frame" x="20" y="345" width="374" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <string key="text">	You will have to talk about the topic for one to two minutes. You have one minute to think about what you are going to say. You can make some notes to help you if you wish.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Model answer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdD-hx-DWk">
+                                <rect key="frame" x="20" y="483" width="374" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Psb-mw-paK">
+                                <rect key="frame" x="20" y="438" width="174" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.4346025402" green="0.092095883789999999" blue="0.44219559590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title=" Start recording" image="music.mic" catalog="system">
+                                    <color key="titleColor" red="0.4346025402" green="0.092095883789999999" blue="0.44219559590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapStartRecordingButton:" destination="Cbx-KL-kuC" eventType="touchUpInside" id="t8i-a5-8Fz"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time — 00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qba-4j-IM1">
+                                <rect key="frame" x="260" y="438" width="116" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="1Oh-cF-lG1"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Topic" id="Ccc-ng-7bB">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="N4k-xg-21Q">
+                            <connections>
+                                <segue destination="Agq-ZT-vcI" kind="presentation" id="POp-0z-XPd"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="oCp-UA-Yav">
+                            <connections>
+                                <action selector="saveTopic:" destination="Cbx-KL-kuC" id="EyP-dG-Mfb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="categoryLabel" destination="d6a-yv-5bu" id="b2I-lH-6dI"/>
+                        <outlet property="descriptionTextView" destination="vMS-Df-q7r" id="4bF-tk-k3L"/>
+                        <outlet property="levelLabel" destination="sFC-06-Qav" id="hfd-xq-8tY"/>
+                        <outlet property="modelAnswerTextView" destination="ngB-eM-Xz0" id="Q22-Xh-R6U"/>
+                        <outlet property="rulesTextView" destination="r42-QV-ucB" id="9pk-Av-BUY"/>
+                        <outlet property="startRecordingButton" destination="Psb-mw-paK" id="k0l-TQ-HEP"/>
+                        <outlet property="timeLabel" destination="Qba-4j-IM1" id="GDk-Ga-Sch"/>
+                        <outlet property="titleLabel" destination="Hst-6e-5L8" id="NCZ-2q-urm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IFE-1v-udG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3344.9275362318845" y="-1098.2142857142856"/>
+        </scene>
+        <!--Archive-->
+        <scene sceneID="lOy-2W-SBF">
+            <objects>
+                <viewController id="1FI-ey-7iZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ytj-gc-NAa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="APN-ae-PmF"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Archive" id="M48-B2-8AA">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="6Da-ur-ZGU">
+                            <connections>
+                                <segue destination="Agq-ZT-vcI" kind="presentation" id="moZ-BW-t8t"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LMl-ml-jJf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3345" y="-306"/>
         </scene>
         <!--Account-->
         <scene sceneID="DQA-QX-iHC">
@@ -145,7 +300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u9n-VM-b06" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="548" y="541"/>
+            <point key="canvasLocation" x="548" y="879"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ZYL-ae-QbP">
@@ -160,21 +315,82 @@
                         <color key="selectedImageTintColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="f9W-EK-xgm" kind="relationship" relationship="viewControllers" id="cpB-ic-e6S"/>
+                        <segue destination="jvp-3B-cBq" kind="relationship" relationship="viewControllers" id="cpB-ic-e6S"/>
                         <segue destination="N8r-3b-rUg" kind="relationship" relationship="viewControllers" id="k5u-vK-uTh"/>
                         <segue destination="oem-HD-S87" kind="relationship" relationship="viewControllers" id="HQ3-8k-vIK"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gJ-Hg-4zc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-571" y="-56"/>
+            <point key="canvasLocation" x="-570" y="69"/>
+        </scene>
+        <!--Lessons-->
+        <scene sceneID="cmk-2f-PR7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jvp-3B-cBq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Lessons" image="book.fill" catalog="system" selectedImage="book.fill" id="OWs-Le-Swz">
+                        <color key="badgeColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MPD-Yv-ACs">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="f9W-EK-xgm" kind="relationship" relationship="rootViewController" id="wQ3-ep-qHJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vVT-29-4ex" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="547.82608695652175" y="-686.38392857142856"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PEB-8o-YEy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5ML-fC-XDp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FMC-IX-avx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Cbx-KL-kuC" kind="relationship" relationship="rootViewController" id="dRt-IQ-gr1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xdM-S6-1fQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2467" y="-1098"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="WHz-b0-aLm">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6aE-YN-hCo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0V5-rx-Svj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1FI-ey-7iZ" kind="relationship" relationship="rootViewController" id="2lC-Dx-ObA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="paD-de-kbk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2467" y="-306"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="POp-0z-XPd"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="archivebox" catalog="system" width="128" height="106"/>
         <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="chart.bar.fill" catalog="system" width="128" height="89"/>
         <image name="mic.circle" catalog="system" width="128" height="121"/>
+        <image name="music.mic" catalog="system" width="128" height="118"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>
