@@ -42,6 +42,33 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     
     var recordsNumber: Int = 0
     
+    // MARK: Time Counter
+    
+    var seconds = 0 // This variable will hold a starting value of seconds. It could be any amount above 0.
+    var timer = Timer()
+    
+    func timeString(time:TimeInterval) -> String {
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
+        
+        return String(format: "%02i:%02i", minutes, seconds)
+    }
+    
+    func runTimer() {
+         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(TopicViewController.updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        seconds += 1 // This will decrement(count down)the seconds.
+        timeLabel.text = timeString(time: TimeInterval(seconds)) //This will update the label.
+    }
+    
+    func stopTimer() {
+        timer.invalidate()
+        seconds = 0 // Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
+        timeLabel.text = timeString(time: TimeInterval(seconds))
+    }
+    
     // MARK: Actions
     
     @IBAction func didTapStartRecordingButton(_ sender: Any) {
@@ -61,6 +88,8 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 audioRecorder.delegate = self
                 audioRecorder.record()
                 
+                runTimer()
+                
                 startRecordingButton.setTitle("Stop recording", for: .normal)
             } catch {
                 displayAlert(title: "UPS!", message: "Recording failed")
@@ -69,6 +98,8 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             // Stop audio recording
             audioRecorder.stop()
             audioRecorder = nil
+            
+            stopTimer()
             
             startRecordingButton.setTitle("Start recording", for: .normal)
         }
