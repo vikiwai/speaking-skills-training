@@ -10,8 +10,20 @@ import UIKit
 import AVFoundation
 
 class TopicViewController: UIViewController, AVAudioRecorderDelegate {
+    
+    struct ConfigurationModel {
+        public let topicsNumber: Int
+        public let titleText: String
+        public let categoryText: String
+        public let levelText: String
+        public let desriptionText: String
+        public let rulesText: String
+        public let modelAnswerText: String
+    }
 
     // MARK: Properties
+    
+    var number: Int!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -24,6 +36,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startRecordingButton: UIButton!
     
+    var configurationModel: ConfigurationModel?
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     
@@ -38,6 +51,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             recordsNumber += 1
             
             let filename = getDirectory().appendingPathComponent("\(recordsNumber).m4a")
+            print(filename)
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 1200, AVNumberOfChannelsKey: 1,
                             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             
@@ -83,11 +97,13 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setViewElements()
 
         // Do any additional setup after loading the view.
         
         // Setting up session.
         recordingSession = AVAudioSession.sharedInstance()
+        
         
         AVAudioSession.sharedInstance().requestRecordPermission {
             (hasPermission) in
@@ -95,6 +111,26 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 print("ACCEPTED")
             }
         }
+ 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+    }
+    
+    private func setViewElements() {
+        guard let configurationModel = self.configurationModel else { return }
+        self.number = configurationModel.topicsNumber
+        self.titleLabel.text = configurationModel.titleText
+        self.categoryLabel.text = configurationModel.categoryText
+        self.levelLabel.text = configurationModel.levelText
+        self.descriptionTextView.text = configurationModel.desriptionText
+        self.rulesTextView.text = configurationModel.rulesText
+        self.modelAnswerTextView.text = configurationModel.modelAnswerText
+    }
+    
+    public func setConfigurationModel(configurationModel: ConfigurationModel) {
+        self.configurationModel = configurationModel
     }
     
 
@@ -109,3 +145,5 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     */
 
 }
+
+

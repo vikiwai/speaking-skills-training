@@ -20,7 +20,9 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Authorization")
+            newViewController.modalPresentationStyle = .fullScreen
             self.present(newViewController, animated: true, completion: nil)
+            
         }
     }
 

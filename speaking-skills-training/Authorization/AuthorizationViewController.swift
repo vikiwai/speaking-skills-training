@@ -30,6 +30,7 @@ class AuthorizationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.modalPresentationStyle = .fullScreen
         // Do any additional setup after loading the view.
     }
     
