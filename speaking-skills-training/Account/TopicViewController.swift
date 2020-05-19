@@ -60,12 +60,17 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     
     @objc func updateTimer() {
         seconds += 1 // This will decrement(count down)the seconds.
+        if seconds >= 120 {
+            timeLabel.textColor = .red
+        }
         timeLabel.text = timeString(time: TimeInterval(seconds)) //This will update the label.
     }
     
     func stopTimer() {
         timer.invalidate()
+        
         seconds = 0 // Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
+        timeLabel.textColor = .black
         timeLabel.text = timeString(time: TimeInterval(seconds))
     }
     
