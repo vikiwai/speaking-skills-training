@@ -38,5 +38,4 @@ class Lesson {
         self.rules = rules
         self.modelAnswer = modelAnswer
     }
-    
 }

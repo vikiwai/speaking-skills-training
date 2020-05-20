@@ -42,6 +42,8 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRecorder: AVAudioRecorder!
     
     var recordsNumber: Int = 0
+    var recordTime: Double?
+    var recordDate: String?
     
     // MARK: Analysis properties
     
@@ -106,9 +108,17 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 displayAlert(title: "UPS!", message: "Recording failed")
             }
         } else {
+            // Get info about attempt
+            
+            recordTime = audioRecorder.currentTime
+            
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+            recordDate = formatter.string(from: date)
+            
             // Stop audio recording
             
-            //print(audioRecorder.currentTime)
             audioRecorder.stop()
             audioRecorder = nil
             
@@ -117,7 +127,6 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             startRecordingButton.setTitle("Start recording", for: .normal)
             
             recordingProcess(path: path)
-            //print(self.text ?? "NIL")
         }
     }
     
@@ -163,7 +172,14 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             if let transcription = result?.bestTranscription {
                 self.text = transcription.formattedString
                 if result!.isFinal {
-                    print(self.text ?? "NULLL")
+                    // print(self.text ?? "NULLL")
+                    var attempt = Attempt.init(path: url, title: self.titleLabel.text!, number: self.recordsNumber, date: self.recordDate!, text: self.text, time: self.recordTime!)
+                    print(attempt?.path)
+                    print(attempt?.title)
+                    print(attempt?.number)
+                    print(attempt?.date)
+                    print(attempt?.text)
+                    print(attempt?.time)
                 }
             }
         }
