@@ -17,13 +17,45 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: Private methods
     
     private func loadSampleAttempts() {
+        
+        // MARK: TO-DO AUTO INIT
         guard let attempt1 = Attempt(path: URL(fileURLWithPath: ""), title: "Describe a leisure activity that you do with your family", number: 3, date: "20.05.2020", text: "When is the great advantages of having a family visit to family members is that they never really Ronaldo ideas to spend and enjoy quality time by getting involved with different kinds of ways activities and like iSerya to have one of those extra two families never hesitate to enjoy different leisure activities for an hour and a bit insurers", time: 27.423625) else {
             fatalError("Unable to instantiate lesson1")
         }
         
         attempts += [attempt1]
         
-        // MARK: TO-DO AUTO INIT
+        // Getting score for every attempts
+        checkCorrectSpokenText(sourceText: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.", spokenText: attempt1.text)
+        
+    }
+    
+    // MARK: Private function
+    
+    func checkCorrectSpokenText(sourceText: String, spokenText: String) {
+        var arrayOfWordsForSourceText: Array<String> = []
+        for item in sourceText.components(separatedBy: [" ", "."]) {
+            if item != "" {
+                arrayOfWordsForSourceText.append(item)
+            }
+        }
+        
+        var arrayOfWordsForSpokenText = spokenText.split(separator: " ")
+        
+        var params = [String: Bool]()
+        var paa: Dictionary<String, Bool> = [:]
+        
+        for item in arrayOfWordsForSpokenText {
+            
+        }
+        
+        
+        
+        
+        
+        
+        print(arrayOfWordsForSourceText)
+        print(arrayOfWordsForSpokenText)
     }
     
     override func viewDidLoad() {
@@ -66,6 +98,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         
         cell.scoreLabel.text = "Score for the attempt #\(attempt.number) — (\(attempt.date))"
         cell.path = attempt.path
+        cell.correctSpokenTextLabel.text = "\(attempt.correctSpokenText) %"
         
         return cell
     }
