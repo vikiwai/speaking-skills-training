@@ -22,6 +22,8 @@
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Do you allow the use of a microphone?</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>I want to write down everything you say</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

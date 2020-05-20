@@ -107,6 +107,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             }
         } else {
             // Stop audio recording
+            
             //print(audioRecorder.currentTime)
             audioRecorder.stop()
             audioRecorder = nil
@@ -115,14 +116,57 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             
             startRecordingButton.setTitle("Start recording", for: .normal)
             
-            print(path!)
             recordingProcess(path: path)
+            //print(self.text ?? "NIL")
         }
-        
     }
     
     private func recordingProcess(path: URL) {
+        // Given an audio file at url, the following code transcribes the file and prints the results
         
+        SFSpeechRecognizer.requestAuthorization {
+            
+            [unowned self] (authStatus) in
+            switch authStatus {
+            case .authorized:
+                if let path = self.path {
+                print("Path to request " + "\(path)")
+            }
+            case .denied:
+                print("Speech recognition authorization denied")
+            case .restricted:
+                print("Not available on this device")
+            case .notDetermined:
+                print("Not determined")
+            }
+        }
+        
+        self.transcribeFile(url: path, locale: Locale.init(identifier: "en_GB"))
+    }
+    
+   fileprivate func transcribeFile(url: URL, locale: Locale) {
+        guard let recognizer = SFSpeechRecognizer(locale: locale) else {
+            print("Speech recognition not available for specified locale")
+            return
+        }
+        
+        if !recognizer.isAvailable {
+            print("Speech recognition not currently available")
+            return
+        }
+        
+        let request = SFSpeechURLRecognitionRequest(url: url) // for reading from a file.
+    
+        recognizer.recognitionTask(with: request) { (result, error) in //  generate recognition tasks and return results
+            //print(error)
+            
+            if let transcription = result?.bestTranscription {
+                self.text = transcription.formattedString
+                if result!.isFinal {
+                    print(self.text ?? "NULLL")
+                }
+            }
+        }
     }
     
     @IBAction func saveTopic(_ sender: Any) {
