@@ -17,7 +17,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: Private methods
     
     private func loadSampleAttempts() {
-        guard let attempt1 = Attempt(path: URL(fileURLWithPath: "file:///var/mobile/Containers/Data/Application/335F24A1-98D8-40EB-8F06-930F12F48C7C/Documents/3.m4a"), title: "Describe a leisure activity that you do with your family", number: 3, date: "20.05.2020", text: "When is the great advantages of having a family visit to family members is that they never really Ronaldo ideas to spend and enjoy quality time by getting involved with different kinds of ways activities and like iSerya to have one of those extra two families never hesitate to enjoy different leisure activities for an hour and a bit insurers", time: 27.423625) else {
+        guard let attempt1 = Attempt(path: URL(fileURLWithPath: ""), title: "Describe a leisure activity that you do with your family", number: 3, date: "20.05.2020", text: "When is the great advantages of having a family visit to family members is that they never really Ronaldo ideas to spend and enjoy quality time by getting involved with different kinds of ways activities and like iSerya to have one of those extra two families never hesitate to enjoy different leisure activities for an hour and a bit insurers", time: 27.423625) else {
             fatalError("Unable to instantiate lesson1")
         }
         
@@ -57,7 +57,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         let cellIdentifier = "AttemptTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AttemptTableViewCell  else {
-            fatalError("The dequeued cell is not an instance of LessonTableViewCell.")
+            fatalError("The dequeued cell is not an instance of AttemptTableViewCell.")
         }
 
         // Configure the cell.
@@ -65,8 +65,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         let attempt = attempts[indexPath.row]
         
         cell.scoreLabel.text = "Score for the attempt #\(attempt.number) — (\(attempt.date))"
-        
-        // cell.delegate = self
+        cell.path = attempt.path
         
         return cell
     }
