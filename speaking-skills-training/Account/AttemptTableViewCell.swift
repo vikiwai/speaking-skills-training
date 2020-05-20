@@ -10,6 +10,20 @@ import UIKit
 
 class AttemptTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var listeningButton: UIButton!
+    
+    @IBAction func didListeningButtonTapped(_ sender: Any) {
+    }
+    
+    @IBOutlet weak var correctSpokenTextLabel: UILabel!
+    @IBOutlet weak var correctPausesLabel: UILabel!
+    @IBOutlet weak var pitchLabel: UILabel!
+    @IBOutlet weak var jitterLabel: UILabel!
+    @IBOutlet weak var shimmerLabel: UILabel!
+    @IBOutlet weak var speechSpeedLabel: UILabel!
+    @IBOutlet weak var vocabularyLevelLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

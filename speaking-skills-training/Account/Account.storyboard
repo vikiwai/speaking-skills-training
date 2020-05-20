@@ -338,7 +338,7 @@
         <!--Archive-->
         <scene sceneID="lOy-2W-SBF">
             <objects>
-                <viewController id="1FI-ey-7iZ" customClass="ArchiveTableViewController" customModule="speaking_skills_training" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Archive" id="1FI-ey-7iZ" customClass="ArchiveTableViewController" customModule="speaking_skills_training" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ytj-gc-NAa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -347,7 +347,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="657"/>
                                 <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="215" id="dpW-0x-3vY" customClass="AttemptTableViewCell" customModule="speaking_skills_training" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AttemptTableViewCell" rowHeight="215" id="dpW-0x-3vY" customClass="AttemptTableViewCell" customModule="speaking_skills_training">
                                         <rect key="frame" x="0.0" y="28" width="375" height="215"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dpW-0x-3vY" id="kEK-Is-S9X">
@@ -373,6 +373,9 @@
                                                     <state key="normal" image="play.circle" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didListeningButtonTapped:" destination="dpW-0x-3vY" eventType="touchUpInside" id="SKz-47-E8j"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pitch:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HS1-7n-ovl">
                                                     <rect key="frame" x="15" y="85" width="374" height="20"/>
@@ -467,8 +470,23 @@
                                                 <constraint firstItem="k2N-X9-Rc5" firstAttribute="top" secondItem="FUa-Hc-Ebj" secondAttribute="bottom" constant="5" id="zm1-WA-mYs"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="correctPausesLabel" destination="3Hc-Vw-PQc" id="29f-q9-Y04"/>
+                                            <outlet property="correctSpokenTextLabel" destination="tml-bd-a26" id="Fwt-W2-UMr"/>
+                                            <outlet property="jitterLabel" destination="FUa-Hc-Ebj" id="ucH-1Y-cKE"/>
+                                            <outlet property="listeningButton" destination="Lsp-mb-Bhr" id="xOe-vU-03T"/>
+                                            <outlet property="pitchLabel" destination="HS1-7n-ovl" id="do6-xD-bBp"/>
+                                            <outlet property="scoreLabel" destination="RGt-hG-tt5" id="1CN-mo-pAz"/>
+                                            <outlet property="shimmerLabel" destination="k2N-X9-Rc5" id="3YT-KC-8HP"/>
+                                            <outlet property="speechSpeedLabel" destination="4Qe-dw-iX9" id="xLv-v7-D2d"/>
+                                            <outlet property="vocabularyLevelLabel" destination="nom-nH-mWj" id="Dpz-Ut-Mvz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="1FI-ey-7iZ" id="Lkn-vS-w5I"/>
+                                    <outlet property="delegate" destination="1FI-ey-7iZ" id="hkO-N2-IJx"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.85490942000000003" green="0.76707804199999996" blue="0.85491269830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
