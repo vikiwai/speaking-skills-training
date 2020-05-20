@@ -10,11 +10,17 @@ import UIKit
 
 class AttemptTableViewCell: UITableViewCell {
 
+    // MARK: Properties
+    
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var listeningButton: UIButton!
     
+    // MARK: Actions
+    
     @IBAction func didListeningButtonTapped(_ sender: Any) {
     }
+    
+    // MARK: Score properties
     
     @IBOutlet weak var correctSpokenTextLabel: UILabel!
     @IBOutlet weak var correctPausesLabel: UILabel!

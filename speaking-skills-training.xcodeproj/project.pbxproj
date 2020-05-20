@@ -129,9 +129,9 @@
 				5B8A71F52471AC6C007C7D73 /* TopicViewController.swift */,
 				5BF0DDEB24748F6B00A4C937 /* ArchiveTableViewController.swift */,
 				5BF0DDED24748FA700A4C937 /* AttemptTableViewCell.swift */,
+				5BF0DDEF2475A23400A4C937 /* Attempt.swift */,
 				5BC63E702452514700433563 /* StatisticsViewController.swift */,
 				5BC63E6C24505ED400433563 /* AccountViewController.swift */,
-				5BF0DDEF2475A23400A4C937 /* Attempt.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";

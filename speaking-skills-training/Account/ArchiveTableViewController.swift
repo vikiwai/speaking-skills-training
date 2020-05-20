@@ -8,7 +8,23 @@
 
 import UIKit
 
-class ArchiveTableViewController: UITableViewController {
+class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: Properties
+    
+    var attempts: Array<Attempt> = Array();
+    
+    // MARK: Private methods
+    
+    private func loadSampleAttempts() {
+        guard let attempt1 = Attempt(path: URL(fileURLWithPath: "file:///var/mobile/Containers/Data/Application/335F24A1-98D8-40EB-8F06-930F12F48C7C/Documents/3.m4a"), title: "Describe a leisure activity that you do with your family", number: 3, date: "20.05.2020", text: "When is the great advantages of having a family visit to family members is that they never really Ronaldo ideas to spend and enjoy quality time by getting involved with different kinds of ways activities and like iSerya to have one of those extra two families never hesitate to enjoy different leisure activities for an hour and a bit insurers", time: 27.423625) else {
+            fatalError("Unable to instantiate lesson1")
+        }
+        
+        attempts += [attempt1]
+        
+        // MARK: TO-DO AUTO INIT
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,29 +34,43 @@ class ArchiveTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // Load sample data.
+        loadSampleAttempts()
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return attempts.count
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Table view cells are reused and should be dequeued using a cell identifier.
+        let cellIdentifier = "AttemptTableViewCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AttemptTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of LessonTableViewCell.")
+        }
 
-        // Configure the cell...
-
+        // Configure the cell.
+        
+        let attempt = attempts[indexPath.row]
+        
+        cell.scoreLabel.text = "Score for the attempt #\(attempt.number) — (\(attempt.date))"
+        
+        // cell.delegate = self
+        
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
