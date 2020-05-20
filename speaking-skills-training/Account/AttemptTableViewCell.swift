@@ -18,11 +18,19 @@ class AttemptTableViewCell: UITableViewCell {
     
     var path: URL!
     var player: AVAudioPlayer?
+    var isPlaying: Bool = false
     
     // MARK: Actions
     
     @IBAction func didListeningButtonTapped(_ sender: Any) {
-        playSound()
+        if !isPlaying {
+            listeningButton.setImage(UIImage(systemName: "stop.circle"), for: .normal)
+            playSound()
+        } else {
+            listeningButton.setImage(UIImage(systemName: "play.circle"), for: .normal)
+            player?.stop()
+            isPlaying = false
+        }
     }
     
     // MARK: Score properties
@@ -38,19 +46,15 @@ class AttemptTableViewCell: UITableViewCell {
     // MARK: Private function
     
     func playSound() {
+        isPlaying = true
+        
         guard let url = path else { return }
         
-        print(url)
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
 
-            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.m4a.rawValue)
-
-            /* iOS 10 and earlier require the following line:
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
-
+            //player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.m4a.rawValue)
             guard let player = player else { return }
 
             player.play()
