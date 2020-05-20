@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,31 +12,31 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="speaking_skills_training" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="y8I-S0-gxQ">
-                                <rect key="frame" x="20" y="263" width="374" height="262"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Application for speaking skills training" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdT-bb-AG7">
-                                <rect key="frame" x="20" y="533" width="374" height="29"/>
+                                <rect key="frame" x="16" y="404" width="343" height="29"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="umw-mi-hkh"/>
+                                    <constraint firstAttribute="height" constant="29" id="RaD-Ou-0qP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="y8I-S0-gxQ">
+                                <rect key="frame" x="16" y="164" width="343" height="232"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.97415500880000006" green="0.96156674620000004" blue="0.9573360085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="0SC-wH-cag"/>
-                            <constraint firstItem="wdT-bb-AG7" firstAttribute="top" secondItem="y8I-S0-gxQ" secondAttribute="bottom" constant="8" id="9q1-5e-PJz"/>
-                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="219" id="N6P-Uw-IJS"/>
-                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="SUB-Tc-KRV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wdT-bb-AG7" secondAttribute="bottom" constant="300" id="pYf-sL-nba"/>
-                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="leading" secondItem="wdT-bb-AG7" secondAttribute="leading" id="sSZ-mK-M5Q"/>
-                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="trailing" secondItem="wdT-bb-AG7" secondAttribute="trailing" id="scb-Ug-XD2"/>
+                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="leading" secondItem="wdT-bb-AG7" secondAttribute="leading" id="5nP-Gb-Tfw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wdT-bb-AG7" secondAttribute="bottom" constant="234" id="OJJ-0H-Wmf"/>
+                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="trailing" secondItem="wdT-bb-AG7" secondAttribute="trailing" id="Q5J-DC-pt1"/>
+                            <constraint firstItem="wdT-bb-AG7" firstAttribute="top" secondItem="y8I-S0-gxQ" secondAttribute="bottom" constant="8" id="ScX-cu-IQt"/>
+                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="164" id="Ul2-oW-wGB"/>
+                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ml5-Xr-soF"/>
+                            <constraint firstItem="y8I-S0-gxQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="tjX-ie-G3I"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -48,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140.57971014492756" y="126.5625"/>
+            <point key="canvasLocation" x="138.40000000000001" y="125.4872563718141"/>
         </scene>
         <!--Authorization-->
         <scene sceneID="dJQ-30-VFv">

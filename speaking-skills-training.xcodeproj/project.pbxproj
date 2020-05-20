@@ -25,6 +25,8 @@
 		5BC63E6D24505ED400433563 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E6C24505ED400433563 /* AccountViewController.swift */; };
 		5BC63E6F2452510800433563 /* LessonsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E6E2452510800433563 /* LessonsTableViewController.swift */; };
 		5BC63E712452514700433563 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC63E702452514700433563 /* StatisticsViewController.swift */; };
+		5BF0DDEC24748F6B00A4C937 /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0DDEB24748F6B00A4C937 /* ArchiveTableViewController.swift */; };
+		5BF0DDEE24748FA700A4C937 /* AttemptTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0DDED24748FA700A4C937 /* AttemptTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		5BC63E6C24505ED400433563 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5BC63E6E2452510800433563 /* LessonsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsTableViewController.swift; sourceTree = "<group>"; };
 		5BC63E702452514700433563 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
+		5BF0DDEB24748F6B00A4C937 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
+		5BF0DDED24748FA700A4C937 /* AttemptTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttemptTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,12 +121,14 @@
 			isa = PBXGroup;
 			children = (
 				5BC63E6A24505EA700433563 /* Account.storyboard */,
-				5BC63E6C24505ED400433563 /* AccountViewController.swift */,
 				5BC63E6E2452510800433563 /* LessonsTableViewController.swift */,
 				5B60AFB62470808300676305 /* LessonTableViewCell.swift */,
 				5B60AFB824708CEB00676305 /* Lesson.swift */,
 				5B8A71F52471AC6C007C7D73 /* TopicViewController.swift */,
+				5BF0DDEB24748F6B00A4C937 /* ArchiveTableViewController.swift */,
+				5BF0DDED24748FA700A4C937 /* AttemptTableViewCell.swift */,
 				5BC63E702452514700433563 /* StatisticsViewController.swift */,
+				5BC63E6C24505ED400433563 /* AccountViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -202,8 +208,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BC63E69244F59F400433563 /* RegistrationViewController.swift in Sources */,
+				5BF0DDEE24748FA700A4C937 /* AttemptTableViewCell.swift in Sources */,
 				5BC63E4D244F495B00433563 /* ViewController.swift in Sources */,
 				5B8A71F62471AC6C007C7D73 /* TopicViewController.swift in Sources */,
+				5BF0DDEC24748F6B00A4C937 /* ArchiveTableViewController.swift in Sources */,
 				5BC63E6F2452510800433563 /* LessonsTableViewController.swift in Sources */,
 				5B60AFB72470808300676305 /* LessonTableViewCell.swift in Sources */,
 				5BC63E6D24505ED400433563 /* AccountViewController.swift in Sources */,

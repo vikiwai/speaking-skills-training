@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Speech
 
 class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     
@@ -41,6 +42,11 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRecorder: AVAudioRecorder!
     
     var recordsNumber: Int = 0
+    
+    // MARK: Analysis properties
+    
+    var path: URL!
+    var text: String!
     
     // MARK: Time Counter
     
@@ -83,7 +89,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             recordsNumber += 1
             
             let filename = getDirectory().appendingPathComponent("\(recordsNumber).m4a")
-            print(filename)
+            path = filename
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 1200, AVNumberOfChannelsKey: 1,
                             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             
@@ -101,13 +107,21 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             }
         } else {
             // Stop audio recording
+            //print(audioRecorder.currentTime)
             audioRecorder.stop()
             audioRecorder = nil
             
             stopTimer()
             
             startRecordingButton.setTitle("Start recording", for: .normal)
+            
+            print(path!)
+            recordingProcess(path: path)
         }
+        
+    }
+    
+    private func recordingProcess(path: URL) {
         
     }
     
