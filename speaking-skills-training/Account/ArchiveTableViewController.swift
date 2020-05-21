@@ -19,7 +19,8 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
     private func loadSampleAttempts() {
         
         // MARK: TO-DO AUTO INIT
-        guard let attempt1 = Attempt(path: URL(fileURLWithPath: ""), title: "Describe a leisure activity that you do with your family", number: 3, date: "20.05.2020", text: "When is the great advantages of having a family visit to family members is that they never really Ronaldo ideas to spend and enjoy quality time by getting involved with different kinds of ways activities and like iSerya to have one of those extra two families never hesitate to enjoy different leisure activities for an hour and a bit insurers", time: 27.423625) else {
+        guard let attempt1 = Attempt(path: URL(fileURLWithPath: ""), title: "Describe a leisure activity that you do with your family", number: 3, date: "20.05.2020",
+                                     text: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives", time: 27.423625) else {
             fatalError("Unable to instantiate lesson1")
         }
         
@@ -44,17 +45,214 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
     
         var params: [(String, Bool)] = []
         
-        /*
-        for (index, item) in arrayOfWordsForSourceText.enumerated() {
-            if item == arrayOfWordsForSpokenText[index] || item == arrayOfWordsForSpokenText[index + 1] || item == arrayOfWordsForSpokenText[index + 2] && index != {
-                params.append((item, true))
-            } else {
-                params.append((item, false))
+        var indexSourceText: Int = 0
+        var indexSpokenText: Int = 0
+        
+        let lengthSourceText = arrayOfWordsForSourceText.count
+        let lengthSpokenText = arrayOfWordsForSpokenText.count
+        
+        for n in 0 ... (lengthSourceText - 1) {
+            
+            // No words ever
+            if indexSpokenText == -1 {
+                
+                print("NO")
+                
+                print("indexSourceText = \(indexSourceText)")
+                print(arrayOfWordsForSourceText[indexSourceText])
+                
+                print("indexSpokenText = \(indexSpokenText)")
+                
+                params.append((arrayOfWordsForSourceText[indexSourceText], false))
+                indexSourceText += 1
+            } else if indexSpokenText == 0 {
+                
+                print("FIRST")
+                
+                print("indexSourceText = \(indexSourceText)")
+                print(arrayOfWordsForSourceText[indexSourceText])
+                
+                print("indexSpokenText = \(indexSpokenText)")
+                print(arrayOfWordsForSpokenText[indexSpokenText])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 2])
+                
+                if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 2
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 3
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 2] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 4
+                } else {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], false))
+                    indexSourceText += 1
+                    // indexSpokenText += 1
+                }
+            } else if indexSpokenText == lengthSpokenText - 1 { // the 2 last
+               
+                print("LAST 2")
+                
+                print("indexSourceText = \(indexSourceText)")
+                print(arrayOfWordsForSourceText[indexSourceText])
+                
+                print("indexSpokenText = \(indexSpokenText)")
+                print(arrayOfWordsForSpokenText[indexSpokenText - 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText])
+                
+                if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText = -1 // no words in spoken array
+                } else { // NOTHING GOOOOOO
+                    params.append((arrayOfWordsForSourceText[indexSourceText], false))
+                    indexSourceText += 1
+                    indexSpokenText = -1 // no words in spoken array
+                }
+            } else if indexSpokenText == lengthSpokenText - 2 { // the 3 last
+                
+                print("LAST 3")
+                
+                print("indexSourceText = \(indexSourceText)")
+                print(arrayOfWordsForSourceText[indexSourceText])
+                
+                print("indexSpokenText = \(indexSpokenText)")
+                print(arrayOfWordsForSpokenText[indexSpokenText - 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 1])
+                
+                if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 1
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 1
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText = -1 // no words in spoken array
+                } else { // NOTHING GOOOOOO
+                    params.append((arrayOfWordsForSourceText[indexSourceText], false))
+                    indexSourceText += 1
+                    //indexSpokenText += 1
+                }
+            } else if indexSpokenText == lengthSpokenText - 3 { // the 4 last
+                
+                print("LAST 4")
+                
+                print("indexSourceText = \(indexSourceText)")
+                print(arrayOfWordsForSourceText[indexSourceText])
+                
+                print("indexSpokenText = \(indexSpokenText)")
+                print(arrayOfWordsForSpokenText[indexSpokenText - 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 2])
+                
+                if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 1
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 2
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 2
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 2] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText = -1 // no words in spoken array
+                } else { // NOTHING GOOOOOO
+                    params.append((arrayOfWordsForSourceText[indexSourceText], false))
+                    indexSourceText += 1
+                    //indexSpokenText += 1
+                }
+            } else if indexSpokenText == lengthSpokenText - 4 { // the 5 last
+                
+                print("LAST 5")
+                
+                print("indexSourceText = \(indexSourceText)")
+                print(arrayOfWordsForSourceText[indexSourceText])
+                
+                print("indexSpokenText = \(indexSpokenText)")
+                print(arrayOfWordsForSpokenText[indexSpokenText - 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 2])
+                
+                if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 1
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 2
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 3
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 2] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 3
+                } else { // NOTHING GOOOOOO
+                    params.append((arrayOfWordsForSourceText[indexSourceText], false))
+                    indexSourceText += 1
+                    //indexSpokenText += 1
+                }
+            } else { // NORMMMMMM
+                
+                print("USUAL")
+                
+                print("indexSourceText = \(indexSourceText)")
+                print(arrayOfWordsForSourceText[indexSourceText])
+                
+                print("indexSpokenText = \(indexSpokenText)")
+                print(arrayOfWordsForSpokenText[indexSpokenText - 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 1])
+                print(arrayOfWordsForSpokenText[indexSpokenText + 2])
+                
+                if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 1
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 2
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 1] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 3
+                } else if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText + 2] {
+                    params.append((arrayOfWordsForSourceText[indexSourceText], true))
+                    indexSourceText += 1
+                    indexSpokenText += 4
+                } else { // NOTHING GOOOOOO
+                    params.append((arrayOfWordsForSourceText[indexSourceText], false))
+                    indexSourceText += 1
+                    //indexSpokenText += 1
+                }
             }
-        }
-        */
-        for item in params {
-            print("The word '\(item.0)' is \(item.1) recognized")
+            
+            print(" . ")
+            print("The word '\(params[n].0)' is \(params[n].1) recognized")
+            print(" _______________________________ ")
         }
     }
     
