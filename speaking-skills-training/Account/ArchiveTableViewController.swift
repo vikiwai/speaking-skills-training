@@ -40,22 +40,22 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        var arrayOfWordsForSpokenText = spokenText.split(separator: " ")
+        let arrayOfWordsForSpokenText = spokenText.split(separator: " ")
+    
+        var params: [(String, Bool)] = []
         
-        var params = [String: Bool]()
-        var paa: Dictionary<String, Bool> = [:]
-        
-        for item in arrayOfWordsForSpokenText {
-            
+        /*
+        for (index, item) in arrayOfWordsForSourceText.enumerated() {
+            if item == arrayOfWordsForSpokenText[index] || item == arrayOfWordsForSpokenText[index + 1] || item == arrayOfWordsForSpokenText[index + 2] && index != {
+                params.append((item, true))
+            } else {
+                params.append((item, false))
+            }
         }
-        
-        
-        
-        
-        
-        
-        print(arrayOfWordsForSourceText)
-        print(arrayOfWordsForSpokenText)
+        */
+        for item in params {
+            print("The word '\(item.0)' is \(item.1) recognized")
+        }
     }
     
     override func viewDidLoad() {
