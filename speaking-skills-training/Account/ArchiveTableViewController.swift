@@ -13,6 +13,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: Properties
     
     var attempts: Array<Attempt> = Array();
+    var correctSpokenText: [(String, Bool)]!
     
     // MARK: Private methods
     
@@ -20,20 +21,20 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         
         // MARK: TO-DO AUTO INIT
         guard let attempt1 = Attempt(path: URL(fileURLWithPath: ""), title: "Describe a leisure activity that you do with your family", number: 3, date: "20.05.2020",
-                                     text: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives", time: 27.423625) else {
+                                     text: "When of the great advantages of having a family with active d members is that they never really run out of ideas spend and enjoy quality  by involved with different kinds of leisurely activities I am  that I have one  those active families who never hesitate to enjoy different leisure d activities whenever d an opportunity g h arrives", time: 27.423625) else {
             fatalError("Unable to instantiate lesson1")
         }
         
         attempts += [attempt1]
         
         // Getting score for every attempts
-        checkCorrectSpokenText(sourceText: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.", spokenText: attempt1.text)
+        correctSpokenText = checkCorrectSpokenText(sourceText: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.", spokenText: attempt1.text)
         
     }
     
     // MARK: Private function
     
-    func checkCorrectSpokenText(sourceText: String, spokenText: String) {
+    func checkCorrectSpokenText(sourceText: String, spokenText: String) -> [(String, Bool)] {
         var arrayOfWordsForSourceText: Array<String> = []
         for item in sourceText.components(separatedBy: [" ", "."]) {
             if item != "" {
@@ -56,17 +57,19 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
             // No words ever
             if indexSpokenText == -1 {
                 
+                /*
                 print("NO")
                 
                 print("indexSourceText = \(indexSourceText)")
                 print(arrayOfWordsForSourceText[indexSourceText])
                 
                 print("indexSpokenText = \(indexSpokenText)")
-                
+                */
                 params.append((arrayOfWordsForSourceText[indexSourceText], false))
                 indexSourceText += 1
             } else if indexSpokenText == 0 {
                 
+                /*
                 print("FIRST")
                 
                 print("indexSourceText = \(indexSourceText)")
@@ -76,6 +79,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 print(arrayOfWordsForSpokenText[indexSpokenText])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 1])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 2])
+                */
                 
                 if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText] {
                     params.append((arrayOfWordsForSourceText[indexSourceText], true))
@@ -96,6 +100,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 }
             } else if indexSpokenText == lengthSpokenText - 1 { // the 2 last
                
+                /*
                 print("LAST 2")
                 
                 print("indexSourceText = \(indexSourceText)")
@@ -104,6 +109,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 print("indexSpokenText = \(indexSpokenText)")
                 print(arrayOfWordsForSpokenText[indexSpokenText - 1])
                 print(arrayOfWordsForSpokenText[indexSpokenText])
+                */
                 
                 if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
                     params.append((arrayOfWordsForSourceText[indexSourceText], true))
@@ -119,6 +125,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 }
             } else if indexSpokenText == lengthSpokenText - 2 { // the 3 last
                 
+                /*
                 print("LAST 3")
                 
                 print("indexSourceText = \(indexSourceText)")
@@ -128,6 +135,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 print(arrayOfWordsForSpokenText[indexSpokenText - 1])
                 print(arrayOfWordsForSpokenText[indexSpokenText])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 1])
+                */
                 
                 if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
                     params.append((arrayOfWordsForSourceText[indexSourceText], true))
@@ -148,6 +156,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 }
             } else if indexSpokenText == lengthSpokenText - 3 { // the 4 last
                 
+                /*
                 print("LAST 4")
                 
                 print("indexSourceText = \(indexSourceText)")
@@ -158,6 +167,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 print(arrayOfWordsForSpokenText[indexSpokenText])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 1])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 2])
+                */
                 
                 if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
                     params.append((arrayOfWordsForSourceText[indexSourceText], true))
@@ -182,6 +192,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 }
             } else if indexSpokenText == lengthSpokenText - 4 { // the 5 last
                 
+                /*
                 print("LAST 5")
                 
                 print("indexSourceText = \(indexSourceText)")
@@ -192,6 +203,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 print(arrayOfWordsForSpokenText[indexSpokenText])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 1])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 2])
+                */
                 
                 if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
                     params.append((arrayOfWordsForSourceText[indexSourceText], true))
@@ -216,6 +228,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 }
             } else { // NORMMMMMM
                 
+                /*
                 print("USUAL")
                 
                 print("indexSourceText = \(indexSourceText)")
@@ -226,6 +239,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 print(arrayOfWordsForSpokenText[indexSpokenText])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 1])
                 print(arrayOfWordsForSpokenText[indexSpokenText + 2])
+                */
                 
                 if arrayOfWordsForSourceText[indexSourceText] == arrayOfWordsForSpokenText[indexSpokenText - 1] {
                     params.append((arrayOfWordsForSourceText[indexSourceText], true))
@@ -254,6 +268,8 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
             print("The word '\(params[n].0)' is \(params[n].1) recognized")
             print(" _______________________________ ")
         }
+        
+        return (params)
     }
     
     override func viewDidLoad() {
@@ -296,7 +312,18 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         
         cell.scoreLabel.text = "Score for the attempt #\(attempt.number) — (\(attempt.date))"
         cell.path = attempt.path
-        cell.correctSpokenTextLabel.text = "\(attempt.correctSpokenText) %"
+        
+        var errors: Double = 0
+               
+        for item in correctSpokenText {
+                if item.1 == false {
+                       errors += 1
+                }
+            }
+               
+        let correctness = (Double(correctSpokenText.count) - errors) * 100 / Double(correctSpokenText.count)
+        
+        cell.correctSpokenTextLabel.text = String(format: "%.2f", correctness) + " %"
         
         return cell
     }
