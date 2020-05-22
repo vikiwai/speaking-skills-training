@@ -323,7 +323,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                
         let correctness = (Double(correctSpokenText.count) - errors) * 100 / Double(correctSpokenText.count)
         
-        cell.correctSpokenTextLabel.text = String(format: "%.2f", correctness) + " %"
+        cell.correctSpokenTextLabel.text = "Correct spoken text: " + String(format: "%.2f", correctness) + " %"
         
         return cell
     }

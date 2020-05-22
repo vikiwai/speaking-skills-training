@@ -16,6 +16,8 @@ class AttemptTableViewCell: UITableViewCell {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var listeningButton: UIButton!
     
+    var mistakes: [(String, Bool)]!
+    
     var path: URL!
     var player: AVAudioPlayer?
     var isPlaying: Bool = false
@@ -33,6 +35,11 @@ class AttemptTableViewCell: UITableViewCell {
         }
     }
     
+    @IBAction func didCheckMistakesButtonTapped(_ sender: Any) {
+        //let vc = TextViewController()
+        //vc.arrayOfMistakes = mistakes
+        //vc.correctnessLabel.text! = correctSpokenTextLabel.text!
+    }
     // MARK: Score properties
     
     @IBOutlet weak var correctSpokenTextLabel: UILabel!
