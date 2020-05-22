@@ -30,9 +30,66 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         // Getting score for every attempts
         correctSpokenText = checkCorrectSpokenText(sourceText: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.", spokenText: attempt1.text)
         
+        var kek = checkVocabularyLevel(text: "One of the great advantages of having a family")
+        
     }
     
     // MARK: Private function
+    
+    func checkVocabularyLevel(text: String) -> Array<String>  {
+        
+        var arrayOfWordsForSourceText: Array<String> = []
+        
+        for item in text.components(separatedBy: [" ", "."]) {
+            if item != "" && item != "of" && item != "a" && item != "the" && item != "to" && item != "with" && item != "that" {
+                arrayOfWordsForSourceText.append(item)
+            }
+        }
+        
+        print(arrayOfWordsForSourceText)
+        
+        struct Level: Codable {
+            var entry: String
+            var ten_degree: Int
+        }
+        
+        for item in arrayOfWordsForSourceText {
+            
+            let headers = [
+                "x-rapidapi-host": "twinword-word-graph-dictionary.p.rapidapi.com",
+                "x-rapidapi-key": "aab30a58c2msh4f68f14731d00cap193a1djsn10162259a77c"
+            ]
+
+            let request = NSMutableURLRequest(url: NSURL(string: "https://twinword-word-graph-dictionary.p.rapidapi.com/difficulty/?entry=\(item)")! as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = headers
+
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+                if (error != nil) {
+                    print(error)
+                } else {
+                    let httpResponse = response as? HTTPURLResponse
+                    //print(httpResponse)
+                }
+                
+                print("data: ", data!)
+                
+                let decoder = JSONDecoder()
+                
+                do {
+                    let level = try decoder.decode(Level.self, from: data!)
+                    print(level)
+                } catch {
+                    print("Something was wrong with getting information", error)
+                }
+            })
+
+            dataTask.resume()
+        }
+        
+        return arrayOfWordsForSourceText
+    }
     
     func checkCorrectSpokenText(sourceText: String, spokenText: String) -> [(String, Bool)] {
         var arrayOfWordsForSourceText: Array<String> = []
@@ -264,9 +321,9 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             
-            print(" . ")
-            print("The word '\(params[n].0)' is \(params[n].1) recognized")
-            print(" _______________________________ ")
+            //print(" . ")
+            //print("The word '\(params[n].0)' is \(params[n].1) recognized")
+            //print(" _______________________________ ")
         }
         
         return (params)
