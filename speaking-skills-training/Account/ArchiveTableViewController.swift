@@ -30,7 +30,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         // Getting score for every attempts
         correctSpokenText = checkCorrectSpokenText(sourceText: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.", spokenText: attempt1.text)
         
-        var kek = checkVocabularyLevel(text: "One of the great advantages of never hesitate to enjoy different leisure activities whenever an opportunity arrives.")
+        //var kek = checkVocabularyLevel(text: "One of the great advantages of never hesitate to enjoy different leisure activities whenever an opportunity arrives.")
         
     }
     
@@ -410,6 +410,8 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         let correctness = (Double(correctSpokenText.count) - errors) * 100 / Double(correctSpokenText.count)
         
         cell.correctSpokenTextLabel.text = "Correct spoken text: " + String(format: "%.2f", correctness) + " %"
+        
+        cell.speechSpeedLabel.text = "Speech speed: " + String(format: "%.1f", Double(correctSpokenText.count) * 60 / attempt.time) + " words per minute"
         
         return cell
     }

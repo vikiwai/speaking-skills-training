@@ -182,6 +182,15 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                     print(attempt?.time)
                 }
             }
+            
+            for segment in result!.bestTranscription.segments {
+                                guard let voiceAnalytics = segment.voiceAnalytics else { continue }
+
+                                let pitch = voiceAnalytics.pitch
+                                let voicing = voiceAnalytics.voicing.acousticFeatureValuePerFrame
+                                let jitter = voiceAnalytics.jitter.acousticFeatureValuePerFrame
+                                let shimmer = voiceAnalytics.shimmer.acousticFeatureValuePerFrame
+            }
         }
     }
     
