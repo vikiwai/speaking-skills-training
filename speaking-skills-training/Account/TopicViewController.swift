@@ -171,6 +171,10 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             
             if let transcription = result?.bestTranscription {
                 self.text = transcription.formattedString
+                
+                let lol = transcription.averagePauseDuration // NEW
+                let lol2 = transcription.speakingRate // NEW
+                
                 if result!.isFinal {
                     // print(self.text ?? "NULLL")
                     var attempt = Attempt.init(path: url, title: self.titleLabel.text!, number: self.recordsNumber, date: self.recordDate!, text: self.text, time: self.recordTime!)
@@ -183,14 +187,15 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 }
             }
             
+            // NEW
             for segment in result!.bestTranscription.segments {
-                                guard let voiceAnalytics = segment.voiceAnalytics else { continue }
-
-                                let pitch = voiceAnalytics.pitch
-                                let voicing = voiceAnalytics.voicing.acousticFeatureValuePerFrame
-                                let jitter = voiceAnalytics.jitter.acousticFeatureValuePerFrame
-                                let shimmer = voiceAnalytics.shimmer.acousticFeatureValuePerFrame
+                guard let voiceAnalytics = segment.voiceAnalytics else { continue }
+                let pitch = voiceAnalytics.pitch
+                let voicing = voiceAnalytics.voicing.acousticFeatureValuePerFrame
+                let jitter = voiceAnalytics.jitter.acousticFeatureValuePerFrame
+                let shimmer = voiceAnalytics.shimmer.acousticFeatureValuePerFrame
             }
+            
         }
     }
     
