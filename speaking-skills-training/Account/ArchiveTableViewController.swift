@@ -30,27 +30,32 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         // Getting score for every attempts
         correctSpokenText = checkCorrectSpokenText(sourceText: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.", spokenText: attempt1.text)
         
-        var kek = checkVocabularyLevel(text: "One of the great advantages of having a family")
+        var kek = checkVocabularyLevel(text: "One of the great advantages of never hesitate to enjoy different leisure activities whenever an opportunity arrives.")
         
     }
     
     // MARK: Private function
     
-    func checkVocabularyLevel(text: String) -> Array<String>  {
+    func checkVocabularyLevel(text: String) -> String  {
+        
+        var countDifficulty: Int = 0
+        var countNumbers: Int = 1
+        var vocabularyLevel: String = ""
         
         var arrayOfWordsForSourceText: Array<String> = []
         
         for item in text.components(separatedBy: [" ", "."]) {
-            if item != "" && item != "of" && item != "a" && item != "the" && item != "to" && item != "with" && item != "that" {
+            if item != "" {
                 arrayOfWordsForSourceText.append(item)
             }
         }
         
-        print(arrayOfWordsForSourceText)
+        // print(arrayOfWordsForSourceText)
         
         struct Level: Codable {
-            var entry: String
-            var ten_degree: Int
+            var entry: String?
+            var ten_degree: Int?
+            var result_code: String
         }
         
         for item in arrayOfWordsForSourceText {
@@ -73,13 +78,20 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
                     //print(httpResponse)
                 }
                 
-                print("data: ", data!)
+                // print("data: ", data!)
                 
                 let decoder = JSONDecoder()
                 
                 do {
                     let level = try decoder.decode(Level.self, from: data!)
-                    print(level)
+                    if level.result_code == "200" {
+                        DispatchQueue.main.async {
+                            countDifficulty += level.ten_degree!
+                            countNumbers += 1
+                            print(countDifficulty)
+                            print(countNumbers)
+                        }
+                    }
                 } catch {
                     print("Something was wrong with getting information", error)
                 }
@@ -88,7 +100,24 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
             dataTask.resume()
         }
         
-        return arrayOfWordsForSourceText
+        
+        if Double(countDifficulty / countNumbers) < 2 {
+            vocabularyLevel = "A1"
+        } else if Double(countDifficulty / countNumbers) < 4 {
+            vocabularyLevel = "A2"
+        } else if Double(countDifficulty / countNumbers) < 6 {
+            vocabularyLevel = "B1"
+        } else if Double(countDifficulty / countNumbers) < 8 {
+            vocabularyLevel = "B2"
+        } else if Double(countDifficulty / countNumbers) < 10 {
+            vocabularyLevel = "C1"
+        } else {
+            vocabularyLevel = "C2"
+        }
+        
+        print(vocabularyLevel)
+        
+        return vocabularyLevel
     }
     
     func checkCorrectSpokenText(sourceText: String, spokenText: String) -> [(String, Bool)] {
