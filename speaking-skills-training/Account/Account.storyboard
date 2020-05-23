@@ -15,32 +15,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-Oy-wO5" customClass="LineChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-Oy-wO5" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="58" width="343" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Progress speaking rate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTE-oT-jop">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress speaking rate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTE-oT-jop">
                                 <rect key="frame" x="16" y="20" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="LKY-Ku-z5r"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pronunciation progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLV-2j-kQd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pronunciation progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLV-2j-kQd">
                                 <rect key="frame" x="16" y="323" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="jOb-cy-3ol"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YsW-nm-awM" customClass="LineChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YsW-nm-awM" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="361" width="343" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.76590330279999996" blue="0.86434232789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="MLz-oU-Gng" firstAttribute="bottom" secondItem="YsW-nm-awM" secondAttribute="bottom" constant="17" id="0Q7-QB-EwE"/>
+                            <constraint firstItem="WY0-Oy-wO5" firstAttribute="trailing" secondItem="xLV-2j-kQd" secondAttribute="trailing" id="1QB-XJ-oK8"/>
+                            <constraint firstItem="NTE-oT-jop" firstAttribute="trailing" secondItem="WY0-Oy-wO5" secondAttribute="trailing" id="586-IY-exx"/>
+                            <constraint firstItem="NTE-oT-jop" firstAttribute="trailing" secondItem="Xbd-LR-fMq" secondAttribute="trailingMargin" id="8lD-F2-7oO"/>
+                            <constraint firstItem="YsW-nm-awM" firstAttribute="top" secondItem="xLV-2j-kQd" secondAttribute="bottom" constant="8" id="8nA-rp-6gH"/>
+                            <constraint firstItem="xLV-2j-kQd" firstAttribute="top" secondItem="WY0-Oy-wO5" secondAttribute="bottom" constant="25" id="KAY-Z5-p9I"/>
+                            <constraint firstItem="xLV-2j-kQd" firstAttribute="leading" secondItem="YsW-nm-awM" secondAttribute="leading" id="Lzj-2J-O9X"/>
+                            <constraint firstItem="WY0-Oy-wO5" firstAttribute="leading" secondItem="xLV-2j-kQd" secondAttribute="leading" id="RPw-fw-iT8"/>
+                            <constraint firstItem="NTE-oT-jop" firstAttribute="top" secondItem="MLz-oU-Gng" secondAttribute="top" constant="20" id="eR8-hJ-z9c"/>
+                            <constraint firstItem="NTE-oT-jop" firstAttribute="leading" secondItem="WY0-Oy-wO5" secondAttribute="leading" id="p0j-ZP-CnO"/>
+                            <constraint firstItem="NTE-oT-jop" firstAttribute="leading" secondItem="Xbd-LR-fMq" secondAttribute="leadingMargin" id="uqx-ev-eVX"/>
+                            <constraint firstItem="xLV-2j-kQd" firstAttribute="trailing" secondItem="YsW-nm-awM" secondAttribute="trailing" id="weM-Bj-hei"/>
+                            <constraint firstItem="xLV-2j-kQd" firstAttribute="top" secondItem="Xbd-LR-fMq" secondAttribute="top" constant="323" id="xwD-wz-LGo"/>
+                            <constraint firstItem="WY0-Oy-wO5" firstAttribute="top" secondItem="NTE-oT-jop" secondAttribute="bottom" constant="8" id="zpS-OY-iVW"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="MLz-oU-Gng"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Statistics" image="chart.bar.fill" catalog="system" selectedImage="chart.bar.fill" id="Q8m-Jf-DSP">
