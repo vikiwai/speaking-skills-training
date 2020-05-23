@@ -14,24 +14,27 @@ class StatisticsViewController: UIViewController {
     @IBOutlet weak var progressSpeakingRateView: LineChartView!
     
     @IBOutlet weak var pronunciationProgressLabel: UILabel!
-    @IBOutlet weak var pronunciationProgressView: UIView!
+    @IBOutlet weak var pronunciationProgressView: LineChartView!
     
-    let attempts = ["1", "2", "3", "4", "5", "6"]
+    let attempts = [1, 2, 3, 4, 5, 6]
     let speakingRate = [123.4, 115, 137.5, 143.4, 149, 150.4]
-        
+    let pronunciation = [89, 90, 76, 54, 69, 80]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        customizeChart(dataPoints: attempts, values: speakingRate.map{ Double($0) })
+        customizeChartSpeakingRate(dataPoints: attempts, values: speakingRate.map{ Double($0) })
+        customizeChartPronunciation(dataPoints: attempts, values: pronunciation.map{ Double($0) })
     }
     
-    func customizeChart(dataPoints: [String], values: [Double]) {
+    func customizeChartSpeakingRate(dataPoints: [Int], values: [Double]) {
        // Set ChartDataEntry
         var dataEntries: [ChartDataEntry] = []
             
         for i in 0..<dataPoints.count {
-            let dataEntry = ChartDataEntry(x: values[i], y: Double(i))
+            let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
         }
         
@@ -39,10 +42,22 @@ class StatisticsViewController: UIViewController {
         let lineChartData = LineChartData(dataSet: lineChartDataSet)
         
         progressSpeakingRateView.data = lineChartData
-        
-        
     }
-
+    
+    func customizeChartPronunciation(dataPoints: [Int], values: [Double]) {
+       // Set ChartDataEntry
+        var dataEntries: [ChartDataEntry] = []
+            
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
+            dataEntries.append(dataEntry)
+        }
+        
+        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        
+        pronunciationProgressView.data = lineChartData
+    }
     /*
     // MARK: - Navigation
 
