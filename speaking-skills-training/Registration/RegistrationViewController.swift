@@ -20,6 +20,28 @@ class RegistrationViewController: UIViewController {
     @IBAction func signUp(_ sender: Any) {
     }
     
+    private func passwordCheck() -> Bool {
+        var confirmed = false
+        
+        if passwordTextField.text == reenteredPasswordTextField.text! {
+            confirmed = true
+            
+            DispatchQueue.main.async {
+                let alertController = UIAlertController(title: "Passwords don't match",
+                                                        message: "The entered passwords are different, so registration is not completed",
+                                                        preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Okay", style: UIAlertAction.Style.default) {
+                               UIAlertAction in NSLog("OK")
+                }
+                
+                alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+        }
+        
+        return confirmed
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

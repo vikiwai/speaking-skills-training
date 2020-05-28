@@ -166,17 +166,17 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
         
         let request = SFSpeechURLRecognitionRequest(url: url) // for reading from a file.
     
-        recognizer.recognitionTask(with: request) { (result, error) in //  generate recognition tasks and return results.
+        recognizer.recognitionTask(with: request) { (result, error) in //  generate recognition tasks and return results
             
             if let transcription = result?.bestTranscription {
                 self.text = transcription.formattedString
                 
-                // let averagePauseDuration = transcription.averagePauseDuration
-                // let speakingRate = transcription.speakingRate
+                //let averagePauseDuration = transcription.averagePauseDuration // NEW
+                //let speakingRate = transcription.speakingRate // NEW
                 
                 if result!.isFinal {
-                    // print(self.text ?? "NULLL")
-                    _ = Attempt.init(path: url, title: self.titleLabel.text!, number: self.recordsNumber, date: self.recordDate!, text: self.text, time: self.recordTime!)
+                    print(self.text ?? "NULLL")
+                    var attempt = Attempt.init(path: url, title: self.titleLabel.text!, number: self.recordsNumber, date: self.recordDate!, text: self.text, time: self.recordTime!)
                 }
             }
             
@@ -189,10 +189,12 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 let shimmer = voiceAnalytics.shimmer.acousticFeatureValuePerFrame
             }
             */
+            
         }
     }
     
     @IBAction func saveTopic(_ sender: Any) {
+
     }
     
     // MARK: Private methods
