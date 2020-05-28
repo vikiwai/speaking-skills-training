@@ -72,13 +72,11 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
             let session = URLSession.shared
             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 if (error != nil) {
-                    print(error)
+                    // print(error)
                 } else {
                     let httpResponse = response as? HTTPURLResponse
-                    //print(httpResponse)
+                    print(httpResponse)
                 }
-                
-                // print("data: ", data!)
                 
                 let decoder = JSONDecoder()
                 
@@ -412,6 +410,10 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         cell.correctSpokenTextLabel.text = "Correct spoken text: " + String(format: "%.2f", correctness) + " %"
         
         cell.speechSpeedLabel.text = "Speech speed: " + String(format: "%.1f", Double(correctSpokenText.count) * 60 / attempt.time) + " words per minute"
+        
+        cell.jitterLabel.text = "Stable voice"
+        cell.pitchLabel.text = "The speech is dominated by the high tone"
+        cell.shimmerLabel.text = "Good intonation voice"
         
         return cell
     }

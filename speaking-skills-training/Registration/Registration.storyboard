@@ -62,7 +62,7 @@
                                 </state>
                                 <connections>
                                     <action selector="signUp:" destination="rup-ah-6fc" eventType="touchUpInside" id="rz6-tk-1Ct"/>
-                                    <segue destination="B0z-zb-ghG" kind="showDetail" identifier="3" animates="NO" id="Rmo-4i-NUS"/>
+                                    <segue destination="B0z-zb-ghG" kind="presentation" identifier="3" animates="NO" modalPresentationStyle="fullScreen" id="Rmo-4i-NUS"/>
                                 </connections>
                             </button>
                         </subviews>

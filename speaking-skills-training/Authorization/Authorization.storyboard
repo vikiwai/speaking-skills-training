@@ -53,7 +53,7 @@
                                 </state>
                                 <connections>
                                     <action selector="signUp:" destination="pFA-5e-hlv" eventType="touchUpInside" id="Ivl-Ir-rON"/>
-                                    <segue destination="kxZ-gk-d4r" kind="presentation" identifier="2" animates="NO" id="0XI-zk-eKo"/>
+                                    <segue destination="kxZ-gk-d4r" kind="presentation" identifier="2" animates="NO" modalPresentationStyle="fullScreen" id="0XI-zk-eKo"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your personal info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYH-jM-kt0">

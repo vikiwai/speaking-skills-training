@@ -90,7 +90,6 @@ class LessonsTableViewController: UITableViewController {
         cell.topicDescription = lesson.description
         cell.topicRules = lesson.rules
         cell.topicModelAnswer = lesson.modelAnswer
-
         
         cell.delegate = self
         

@@ -166,28 +166,21 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
         
         let request = SFSpeechURLRecognitionRequest(url: url) // for reading from a file.
     
-        recognizer.recognitionTask(with: request) { (result, error) in //  generate recognition tasks and return results
-            //print(error)
+        recognizer.recognitionTask(with: request) { (result, error) in //  generate recognition tasks and return results.
             
             if let transcription = result?.bestTranscription {
                 self.text = transcription.formattedString
                 
-                let lol = transcription.averagePauseDuration // NEW
-                let lol2 = transcription.speakingRate // NEW
+                // let averagePauseDuration = transcription.averagePauseDuration
+                // let speakingRate = transcription.speakingRate
                 
                 if result!.isFinal {
                     // print(self.text ?? "NULLL")
-                    var attempt = Attempt.init(path: url, title: self.titleLabel.text!, number: self.recordsNumber, date: self.recordDate!, text: self.text, time: self.recordTime!)
-                    print(attempt?.path)
-                    print(attempt?.title)
-                    print(attempt?.number)
-                    print(attempt?.date)
-                    print(attempt?.text)
-                    print(attempt?.time)
+                    _ = Attempt.init(path: url, title: self.titleLabel.text!, number: self.recordsNumber, date: self.recordDate!, text: self.text, time: self.recordTime!)
                 }
             }
             
-            // NEW
+            /*
             for segment in result!.bestTranscription.segments {
                 guard let voiceAnalytics = segment.voiceAnalytics else { continue }
                 let pitch = voiceAnalytics.pitch
@@ -195,12 +188,11 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 let jitter = voiceAnalytics.jitter.acousticFeatureValuePerFrame
                 let shimmer = voiceAnalytics.shimmer.acousticFeatureValuePerFrame
             }
-            
+            */
         }
     }
     
     @IBAction func saveTopic(_ sender: Any) {
-        
     }
     
     // MARK: Private methods
