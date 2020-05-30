@@ -10,8 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK: Properties
+    
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var label: UILabel!
+    
+    // MARK: Loading the view
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +24,10 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Authorization")
-            newViewController.modalPresentationStyle = .fullScreen
-            self.present(newViewController, animated: true, completion: nil)
             
+            newViewController.modalPresentationStyle = .fullScreen
+            
+            self.present(newViewController, animated: true, completion: nil)
         }
     }
-
-
 }
-
