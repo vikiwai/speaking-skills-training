@@ -33,7 +33,6 @@
                                 </state>
                                 <connections>
                                     <action selector="signIn:" destination="pFA-5e-hlv" eventType="touchUpInside" id="20c-08-HPv"/>
-                                    <segue destination="mND-Oy-0up" kind="presentation" identifier="4" animates="NO" modalPresentationStyle="fullScreen" id="rlJ-KP-rfi"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOJ-bf-wbb">
@@ -53,7 +52,6 @@
                                 </state>
                                 <connections>
                                     <action selector="signUp:" destination="pFA-5e-hlv" eventType="touchUpInside" id="Ivl-Ir-rON"/>
-                                    <segue destination="kxZ-gk-d4r" kind="presentation" identifier="2" animates="NO" modalPresentationStyle="fullScreen" id="0XI-zk-eKo"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your personal info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYH-jM-kt0">
@@ -97,24 +95,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6xo-N4-OTD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-132" y="0.44977511244377816"/>
-        </scene>
-        <!--Account-->
-        <scene sceneID="TsE-jB-54M">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Account" storyboardName="Account" id="mND-Oy-0up" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1u2-l7-kha" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="549" y="-94"/>
-        </scene>
-        <!--Registration-->
-        <scene sceneID="c1b-2j-1Ei">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Registration" storyboardName="Registration" id="kxZ-gk-d4r" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="GUT-w1-3RE"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I9E-lc-T0k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="565" y="74"/>
         </scene>
     </scenes>
 </document>

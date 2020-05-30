@@ -13,7 +13,6 @@ class AuthorizationViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    
     @IBAction func signIn(_ sender: Any) {
         if usernameTextField.text != "" && passwordTextField.text != "" {
             // successful
@@ -23,7 +22,10 @@ class AuthorizationViewController: UIViewController {
     @IBAction func signUp(_ sender: Any) {
         // user doesn't exist
         let storyBoard: UIStoryboard = UIStoryboard(name: "Authorization", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Registration")
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Registration") as! RegistrationViewController
+        
+        newViewController.modalPresentationStyle = .fullScreen
+        
         self.present(newViewController, animated: true, completion: nil)
     }
     
