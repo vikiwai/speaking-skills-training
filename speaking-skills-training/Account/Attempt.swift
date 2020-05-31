@@ -10,44 +10,37 @@ import UIKit
 
 class Attempt {
     
-    // MARK: Main properties
+    // MARK: Properties
     
-    var path: URL
-    var title: String
-    var number: Int
-    var date: String
-    
-    // MARK: Defined properties
-    
-    var text: String
-    var time: Double
-    
-    // MARK: Score properties
-    
-    var correctSpokenText: Double = 0
-    var mistakes: Array<String> = []
-    var pauses: Double = 0
-    var pitch: Double = 0
-    var jitter: Double = 0
-    var shimmer: Double = 0
-    var speed: Double = 0
-    var vocabularyLevel: String = ""
+    var id: Int
+    var topicId: Int
+    var startTime: String
+    var finishTime: String
+    var recordAvailable: Bool
+    var pronouncedText: String
+    var originalText: String
+    var speakingRate: Double
+    var correctness: Double
+    var averagePause: Double
+    var shimmer: Double
+    var jitter: Double
+    var pitchVoicing: Double
     
     // MARK: Initialization
     
-    init?(path: URL, title: String, number: Int, date: String, text: String, time: Double) {
-        
-        // Initialization should fail if there are empty main properties.
-        if path.description.isEmpty || title.isEmpty || number == 0 || date.isEmpty || text.isEmpty || time == 0 {
-            return nil
-        }
-
-        // Initialize stored properties.
-        self.path = path
-        self.title = title
-        self.number = number
-        self.date = date
-        self.text = text
-        self.time = time
+    init?(id: Int, topicId: Int, startTime: String, finishTime: String, recordAvailable: Bool, pronouncedText: String, originalText: String, speakingRate: Double, correctness: Double, averagePause: Double, shimmer: Double, jitter: Double, pitchVoicing: Double) {
+        self.id = id
+        self.topicId = topicId
+        self.startTime = startTime
+        self.finishTime = finishTime
+        self.recordAvailable = recordAvailable
+        self.pronouncedText = pronouncedText
+        self.originalText = originalText
+        self.speakingRate = speakingRate
+        self.correctness = correctness
+        self.averagePause = averagePause
+        self.shimmer = shimmer
+        self.jitter = jitter
+        self.pitchVoicing = pitchVoicing
     }
 }

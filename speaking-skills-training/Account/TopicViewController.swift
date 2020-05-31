@@ -28,7 +28,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     
     var authToken: String?
     
-    var id: Int!
+    var id: Int! // topic id
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
