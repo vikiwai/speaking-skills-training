@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AuthorizationViewController: UIViewController {
+class AuthorizationViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
@@ -131,11 +131,24 @@ class AuthorizationViewController: UIViewController {
         self.present(newViewController, animated: true, completion: nil)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
     // MARK: Loading the view
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
         self.modalPresentationStyle = .fullScreen
     }
     
