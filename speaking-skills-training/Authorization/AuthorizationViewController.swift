@@ -31,7 +31,7 @@ class AuthorizationViewController: UIViewController, UITextFieldDelegate {
     // MARK: Private methods
     
     private func postRequestGenerateToken() {
-        var request = URLRequest(url: URL(string: "http://plincessa.ru/Auth/login")!)
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/Auth/login")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         

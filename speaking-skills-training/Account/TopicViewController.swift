@@ -17,8 +17,8 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
         public let titleText: String
         public let categoryText: String
         public let levelText: String
-        public let desriptionText: String
-        public let rulesText: String
+        //public let desriptionText: String
+        //public let rulesText: String
         public let modelAnswerText: String
     }
 
@@ -242,8 +242,8 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
         self.titleLabel.text = configurationModel.titleText
         self.categoryLabel.text = configurationModel.categoryText
         self.levelLabel.text = configurationModel.levelText
-        self.descriptionTextView.text = configurationModel.desriptionText
-        self.rulesTextView.text = configurationModel.rulesText
+        //self.descriptionTextView.text = configurationModel.desriptionText
+        //self.rulesTextView.text = configurationModel.rulesText
         self.modelAnswerTextView.text = configurationModel.modelAnswerText
     }
     

@@ -48,7 +48,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func postRequestCreateNewUser() {
-        var request = URLRequest(url: URL(string: "http://plincessa.ru/User")!)
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/User")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         
@@ -103,7 +103,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func postRequestGenerateToken() {
-        var request = URLRequest(url: URL(string: "http://plincessa.ru/Auth/login")!)
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/Auth/login")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         

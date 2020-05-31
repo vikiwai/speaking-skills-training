@@ -18,8 +18,8 @@ class LessonTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var levelLable: UILabel!
     
-    var topicDescription: String!
-    var topicRules: String!
+   // var topicDescription: String!
+   // var topicRules: String!
     var topicModelAnswer: String!
     
     @IBOutlet weak var recordButton: UIButton!
@@ -31,7 +31,7 @@ class LessonTableViewCell: UITableViewCell {
     
     @IBAction func didTapRecordButton(_ sender: Any) {
         
-        self.delegate?.lessonTableViewCell(self, number: topicNumber ?? 0, title: titleLabel.text ?? "", category: categoryLabel.text ?? "", level: levelLable.text ?? "", description: topicDescription ?? "", rules: topicRules ?? "", modelAnswer: topicModelAnswer ?? "")
+        self.delegate?.lessonTableViewCell(self, number: topicNumber ?? 0, title: titleLabel.text ?? "", category: categoryLabel.text ?? "", level: levelLable.text ?? "", modelAnswer: topicModelAnswer ?? "")
     }
     
     @IBAction func didTapArchiveButton(_ sender: Any) {
@@ -57,5 +57,6 @@ class LessonTableViewCell: UITableViewCell {
 
 // Only class object can conform to this protocol (struct/enum can't)
 protocol LessonTableViewCellDelegate: AnyObject {
-    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, description: String, rules: String, modelAnswer: String)
+//    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, description: String, rules: String, modelAnswer: String)
+    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, modelAnswer: String)
 }

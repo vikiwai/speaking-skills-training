@@ -7,35 +7,46 @@
 //
 
 import UIKit
+import CoreData
 
 class LessonsTableViewController: UITableViewController {
 
     // MARK: Properties
     
+    var authToken: String?
     var lessons: Array<Lesson> = Array();
     
     // MARK: Private methods
     
     private func getRequestListOfTopics() {
-        let request = URLRequest(url: URL(string: "")!) // MARK: TODO
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/Topic/list")!)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(authToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
         print("request: ", request as Any)
+        
         let session = URLSession(configuration: .default)
         
+        let decoder = JSONDecoder()
+        
         let task = session.dataTask(with: request) { (responseData, response, responseError) in
-            guard responseError == nil else {
-                print("error: ", responseError as Any)
+            if responseError != nil {
+                print("responseError: ", responseError.debugDescription as Any)
                 return
             }
             
             print("data: ", responseData!)
             
-            let decoder = JSONDecoder()
+            struct List: Decodable {
+                let list: Array<Lesson>
+            }
             
             do {
-                let array = try decoder.decode([Lesson].self, from: responseData!)
+                let array = try decoder.decode(List.self, from: responseData!)
                 
                 DispatchQueue.main.async {
-                    self.lessons = array
+                    self.lessons = array.list
                     self.tableView.reloadData()
                 }
             } catch {
@@ -46,49 +57,29 @@ class LessonsTableViewController: UITableViewController {
         task.resume()
     }
     
-    private func loadSampleLessons() {
-        
-        /*
-        
-        guard let lesson1 = Lesson(number: 1, title: "Describe a leisure activity that you do with your family", category: "Family topic", level: "B2", description: "You should say: what activity it is, when you do it with your family, how much you enjoy it and explain how this is helpful for you and your family.", rules: "You will have to talk about the topic for one to two minutes. You have one minute to think about what you are going to say. You can make some notes to help you if you wish.", modelAnswer: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.") else {
-            fatalError("Unable to instantiate lesson1")
+    func fetchAuthToken() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
         }
         
-        guard let lesson2 = Lesson(number: 2, title: "Describe an experience when you played an indoor game with others", category: "Life topic", level: "B2", description: "You should say: when it was, what game you played, who you played with and explain how much you enjoyed playing this indoor game.", rules: "You will have to talk about the topic for one to two minutes. You have one minute to think about what you are going to say. You can make some notes to help you if you wish.", modelAnswer: "I never really thought that an indoor game could be as exciting as playing a game in the outdoor, and so I never really showed that much interest in it. But, one day about a couple of years ago, when one of my friends insisted that playing indoor table tennis was going to be really fun, I thought that it was worth giving a try.") else {
-            fatalError("Unable to instantiate lesson2")
-        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Token")
         
-        guard let lesson3 = Lesson(number: 3, title: "Describe some local news that people in your locality are interested in", category: "Social topic", level: "C1", description: "You should say: what the news is, how you know about this news, how the news involves your locality and explain why people in your area are interested in the news.", rules: "You will have to talk about the topic for one to two minutes. You have one minute to think about what you are going to say. You can make some notes to help you if you wish.", modelAnswer: "I live in a rather quiet and small town, and nothing much really happens in it except some occasional bird watching (yes, many foreign birds visit it) and spending some lazy times in some local café and restaurants. Luckily, however, there is a local newspaper in my town for us to read, which provides us with local news about what happens in and around our town. So, today, I would like to talk about one such news which the local people are really interested in.") else {
-            fatalError("Unable to instantiate lesson3")
-        }
-        */
-        //lessons += [lesson1, lesson2, lesson3]
-        
-        // MARK: TO-DO AUTO INIT
-        
-        /*
-        let countOfLessons = 3
-        
-        repeat {
-            guard let lesson = Lesson(title: <#T##String#>, category: <#T##String#>, level: <#T##String#>) else {
-                fatalError("Unable to instantiate meal1")
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                authToken = (data.value(forKey: "token") as! String)
             }
-        } while lessons.count != countOfLessons
-        */
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        fetchAuthToken()
+        getRequestListOfTopics()
         
-        // Load sample data.
-        loadSampleLessons()
     }
 
     // MARK: - Table view data source
@@ -119,8 +110,8 @@ class LessonsTableViewController: UITableViewController {
         cell.titleLabel!.text = lesson.name
         cell.categoryLabel!.text = lesson.theme
         cell.levelLable!.text = lesson.levelName
-        cell.topicDescription = lesson.questions
-        cell.topicRules = lesson.rules
+        //cell.topicDescription = lesson.questions
+        //cell.topicRules = lesson.rules
         cell.topicModelAnswer = lesson.text
         
         cell.delegate = self
@@ -176,11 +167,19 @@ class LessonsTableViewController: UITableViewController {
 }
 
 extension LessonsTableViewController: LessonTableViewCellDelegate {
-    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, description: String, rules: String, modelAnswer: String) {
+//    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, description: String, rules: String, modelAnswer: String) {
+//        let sb = UIStoryboard(name: "Account", bundle: nil)
+//        let vc = sb.instantiateViewController(withIdentifier: "Topic") as! TopicViewController
+//        vc.modalPresentationStyle = .fullScreen
+//        vc.setConfigurationModel(configurationModel: .init(topicsNumber: number, titleText: title, categoryText: category, levelText: level, desriptionText: description, rulesText: rules, modelAnswerText: modelAnswer))
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
+    
+    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, modelAnswer: String) {
         let sb = UIStoryboard(name: "Account", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: "Topic") as! TopicViewController
         vc.modalPresentationStyle = .fullScreen
-        vc.setConfigurationModel(configurationModel: .init(topicsNumber: number, titleText: title, categoryText: category, levelText: level, desriptionText: description, rulesText: rules, modelAnswerText: modelAnswer))
+        vc.setConfigurationModel(configurationModel: .init(topicsNumber: number, titleText: title, categoryText: category, levelText: level, modelAnswerText: modelAnswer))
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
