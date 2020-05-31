@@ -17,24 +17,16 @@ class Lesson: NSObject, Decodable {
     var name: String
     var text: String
     var levelName: String
-    //var questions: String
+    var questionsString: String
 
     // MARK: Initialization
     
-//    init?(id: Int, theme: String, name: String, text: String, levelName: String, questions: String) {
-//        self.id = id
-//        self.theme = theme
-//        self.name = name
-//        self.text = text
-//        self.levelName = levelName
-//        self.questions = questions
-//    }
-    
-    init?(id: Int, theme: String, name: String, text: String, levelName: String) {
+    init?(id: Int, theme: String, name: String, text: String, levelName: String, questions: String) {
         self.id = id
         self.theme = theme
         self.name = name
         self.text = text
         self.levelName = levelName
+        self.questionsString = questions
     }
 }

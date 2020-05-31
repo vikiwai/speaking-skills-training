@@ -14,7 +14,7 @@ class LessonTableViewCell: UITableViewCell {
     
     var topicNumber: Int!
     var topicModelAnswer: String!
-    // var topicDescription: String!
+    var topicDescription: String!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -30,7 +30,7 @@ class LessonTableViewCell: UITableViewCell {
     // MARK: Actions
     
     @IBAction func didTapRecordButton(_ sender: Any) {
-        self.delegate?.lessonTableViewCell(self, number: topicNumber ?? 0, title: titleLabel.text ?? "", category: categoryLabel.text ?? "", level: levelLable.text ?? "", modelAnswer: topicModelAnswer ?? "")
+        self.delegate?.lessonTableViewCell(self, id: topicNumber ?? 0, titleText: titleLabel.text ?? "", categoryText: categoryLabel.text ?? "", levelText: levelLable.text ?? "", modelAnswerText: topicModelAnswer ?? "", descriptionText: topicDescription ?? "")
     }
     
     @IBAction func didTapArchiveButton(_ sender: Any) {
@@ -53,6 +53,6 @@ class LessonTableViewCell: UITableViewCell {
 // MARK: Protocols
 
 protocol LessonTableViewCellDelegate: AnyObject {
-    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, modelAnswer: String)
+    func lessonTableViewCell(_ cell: LessonTableViewCell, id: Int, titleText: String, categoryText: String, levelText: String, modelAnswerText: String, descriptionText: String)
     func lessonTableViewCell(_ cell: LessonTableViewCell)
 }

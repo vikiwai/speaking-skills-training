@@ -110,7 +110,7 @@ class LessonsTableViewController: UITableViewController {
         cell.categoryLabel!.text = lesson.theme
         cell.levelLable!.text = lesson.levelName
         cell.topicModelAnswer = lesson.text
-        //cell.topicDescription = lesson.questions
+        cell.topicDescription = lesson.questionsString
         
         cell.delegate = self
         
@@ -167,13 +167,13 @@ class LessonsTableViewController: UITableViewController {
 // MARK: Extensions
 
 extension LessonsTableViewController: LessonTableViewCellDelegate {    
-    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, modelAnswer: String) {
+    func lessonTableViewCell(_ cell: LessonTableViewCell, id: Int, titleText: String, categoryText: String, levelText: String, modelAnswerText: String, descriptionText: String) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Account", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "Topic") as! TopicViewController
 
         newViewController.modalPresentationStyle = .fullScreen
         
-        newViewController.setConfigurationModel(configurationModel: .init(topicsNumber: number, titleText: title, categoryText: category, levelText: level, modelAnswerText: modelAnswer))
+        newViewController.setConfigurationModel(configurationModel: .init(id: id, titleText: titleText, categoryText: categoryText, levelText: levelText, modelAnswerText: modelAnswerText, descriptionText: descriptionText))
         
         self.navigationController?.pushViewController(newViewController, animated: true)
     }

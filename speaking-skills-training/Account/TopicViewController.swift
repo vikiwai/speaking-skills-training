@@ -9,22 +9,26 @@
 import UIKit
 import AVFoundation
 import Speech
+import CoreData
 
 class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     
+    // MARK: Structures
+    
     struct ConfigurationModel {
-        public let topicsNumber: Int
+        public let id: Int
         public let titleText: String
         public let categoryText: String
         public let levelText: String
-        //public let desriptionText: String
-        //public let rulesText: String
         public let modelAnswerText: String
+        public let descriptionText: String
     }
 
     // MARK: Properties
     
-    var number: Int!
+    var authToken: String?
+    
+    var id: Int!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -38,21 +42,24 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var startRecordingButton: UIButton!
     
     var configurationModel: ConfigurationModel?
+    
+    // MARK: Audio properties
+    
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     
-    var recordsNumber: Int = 0
+    var recordNumber: Int = 0
     var recordTime: Double?
     var recordDate: String?
     
     // MARK: Analysis properties
     
-    var path: URL!
+    var recordPath: URL!
     var text: String!
     
     // MARK: Time Counter
     
-    var seconds = 0 // This variable will hold a starting value of seconds. It could be any amount above 0.
+    var seconds = 0
     var timer = Timer()
     
     func timeString(time:TimeInterval) -> String {
@@ -67,35 +74,53 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     @objc func updateTimer() {
-        seconds += 1 // This will decrement(count down)the seconds.
+        seconds += 1
+        
         if seconds >= 120 {
             timeLabel.textColor = .red
         }
-        timeLabel.text = timeString(time: TimeInterval(seconds)) //This will update the label.
+        timeLabel.text = timeString(time: TimeInterval(seconds))
     }
     
     func stopTimer() {
         timer.invalidate()
+        seconds = 0
         
-        seconds = 0 // Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
         timeLabel.textColor = .black
         timeLabel.text = timeString(time: TimeInterval(seconds))
+    }
+    
+    // MARK: Core Data methods
+    
+    func fetchAuthToken() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Token")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                authToken = (data.value(forKey: "token") as! String)
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
     // MARK: Actions
     
     @IBAction func didTapStartRecordingButton(_ sender: Any) {
-        
-        // Check if we have an active recorder
         if audioRecorder == nil {
-            recordsNumber += 1
+            recordNumber += 1
             
-            let filename = getDirectory().appendingPathComponent("\(recordsNumber).m4a")
-            path = filename
+            let filename = getDirectory().appendingPathComponent("\(recordNumber).m4a")
+            recordPath = filename
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 1200, AVNumberOfChannelsKey: 1,
                             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             
-            // Start audio recording
             do {
                 audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
                 audioRecorder.delegate = self
@@ -108,16 +133,12 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 displayAlert(title: "UPS!", message: "Recording failed")
             }
         } else {
-            // Get info about attempt
-            
             recordTime = audioRecorder.currentTime
             
             let date = Date()
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             recordDate = formatter.string(from: date)
-            
-            // Stop audio recording
             
             audioRecorder.stop()
             audioRecorder = nil
@@ -126,19 +147,19 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             
             startRecordingButton.setTitle("Start recording", for: .normal)
             
-            recordingProcess(path: path)
+            recordingProcess(path: recordPath)
         }
     }
     
+    // MARK: Private methods
+    
     private func recordingProcess(path: URL) {
-        // Given an audio file at url, the following code transcribes the file and prints the results
-        
         SFSpeechRecognizer.requestAuthorization {
             
             [unowned self] (authStatus) in
             switch authStatus {
             case .authorized:
-                if let path = self.path {
+                if let path = self.recordPath {
                 print("Path to request " + "\(path)")
             }
             case .denied:
@@ -147,6 +168,8 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 print("Not available on this device")
             case .notDetermined:
                 print("Not determined")
+            @unknown default:
+                print("Recording process error")
             }
         }
         
@@ -164,40 +187,91 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             return
         }
         
-        let request = SFSpeechURLRecognitionRequest(url: url) // for reading from a file.
+        let request = SFSpeechURLRecognitionRequest(url: url)
     
-        recognizer.recognitionTask(with: request) { (result, error) in //  generate recognition tasks and return results
-            
+        recognizer.recognitionTask(with: request) { (result, error) in
             if let transcription = result?.bestTranscription {
                 self.text = transcription.formattedString
                 
-                //let averagePauseDuration = transcription.averagePauseDuration // NEW
-                //let speakingRate = transcription.speakingRate // NEW
-                
                 if result!.isFinal {
                     print(self.text ?? "NULLL")
-                    var attempt = Attempt.init(path: url, title: self.titleLabel.text!, number: self.recordsNumber, date: self.recordDate!, text: self.text, time: self.recordTime!)
+                    var attempt = Attempt.init(path: url, title: self.titleLabel.text!, number: self.recordNumber, date: self.recordDate!, text: self.text, time: self.recordTime!)
+                    
+                    self.postRequestCreateNewAttempt()
+                }
+            }
+        }
+    }
+    
+    private func postRequestCreateNewAttempt() {
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/Attempt")!)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(authToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "POST"
+        
+        let params: [String: Int] = [
+            "topicId": id
+        ]
+        
+        let encoder = JSONEncoder()
+        
+        do {
+            request.httpBody = try encoder.encode(params)
+            
+            let config = URLSessionConfiguration.default
+            let session = URLSession(configuration: config)
+            
+            let task = session.dataTask(with: request) { (responseData, response, responseError) in
+                if responseError != nil {
+                    print("responseError: ", responseError.debugDescription as Any)
+                    return
+                }
+                
+                if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
+                    print("response: ", utf8Representation)
+                    
+                    if let httpResponse = response as? HTTPURLResponse {
+                        if httpResponse.statusCode != 200 {
+                            DispatchQueue.main.async {
+                                //self.addAlert(alertTitle: "Validation error", alertMessage: utf8Representation)
+                            }
+                            
+                            return
+                        } else {
+                            DispatchQueue.main.async {
+                                //self.postRequestGenerateToken()
+                            }
+                        }
+                    } else {
+                        print("No readable data received in response CREATE USER")
+                    }
                 }
             }
             
-            /*
-            for segment in result!.bestTranscription.segments {
-                guard let voiceAnalytics = segment.voiceAnalytics else { continue }
-                let pitch = voiceAnalytics.pitch
-                let voicing = voiceAnalytics.voicing.acousticFeatureValuePerFrame
-                let jitter = voiceAnalytics.jitter.acousticFeatureValuePerFrame
-                let shimmer = voiceAnalytics.shimmer.acousticFeatureValuePerFrame
-            }
-            */
+            task.resume()
             
+        } catch {
+            print("Something was wrong with post request for registration")
         }
     }
+    
+    // MARK: Actions
     
     @IBAction func saveTopic(_ sender: Any) {
 
     }
     
     // MARK: Private methods
+    
+    private func setViewElements() {
+        guard let configurationModel = self.configurationModel else { return }
+        self.id = configurationModel.id
+        self.titleLabel.text = configurationModel.titleText
+        self.categoryLabel.text = configurationModel.categoryText
+        self.levelLabel.text = configurationModel.levelText
+        self.descriptionTextView.text = configurationModel.descriptionText
+        self.modelAnswerTextView.text = configurationModel.modelAnswerText
+    }
     
     private func getDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -210,47 +284,36 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "dismiss", style: .default, handler: nil))
         
-        present(alert, animated: true, completion: nil) // Display an alert.
+        present(alert, animated: true, completion: nil)
     }
+    
+    // MARK: Public methods
+    
+    public func setConfigurationModel(configurationModel: ConfigurationModel) {
+        self.configurationModel = configurationModel
+    }
+    
+    // MARK: Loading the view
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setViewElements()
+        fetchAuthToken()
 
-        // Do any additional setup after loading the view.
-        
-        // Setting up session.
         recordingSession = AVAudioSession.sharedInstance()
-        
-        
         AVAudioSession.sharedInstance().requestRecordPermission {
             (hasPermission) in
             if hasPermission {
                 print("ACCEPTED")
             }
         }
- 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
     }
-    
-    private func setViewElements() {
-        guard let configurationModel = self.configurationModel else { return }
-        self.number = configurationModel.topicsNumber
-        self.titleLabel.text = configurationModel.titleText
-        self.categoryLabel.text = configurationModel.categoryText
-        self.levelLabel.text = configurationModel.levelText
-        //self.descriptionTextView.text = configurationModel.desriptionText
-        //self.rulesTextView.text = configurationModel.rulesText
-        self.modelAnswerTextView.text = configurationModel.modelAnswerText
-    }
-    
-    public func setConfigurationModel(configurationModel: ConfigurationModel) {
-        self.configurationModel = configurationModel
-    }
-    
+
 
     /*
     // MARK: Navigation
@@ -263,5 +326,3 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
     */
 
 }
-
-
