@@ -54,28 +54,27 @@ class AuthorizationViewController: UIViewController {
                     return
                 }
                 
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode != 200 {
-                        print(httpResponse)
-                        
-                        DispatchQueue.main.async {
-                            self.addAlert(alertTitle: "Wrong", alertMessage: "")
-                        }
-                        return
-                    } else {
-                        if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
-                            print("response: ", utf8Representation)
+                if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
+                    print("response: ", utf8Representation)
+                    
+                    if let httpResponse = response as? HTTPURLResponse {
+                        if httpResponse.statusCode != 200 {
+                            DispatchQueue.main.async {
+                                self.addAlert(alertTitle: "Error", alertMessage: utf8Representation)
+                            }
                             
+                            return
+                        } else {
                             let dict = utf8Representation.toJSON() as? [String: String]
                             
                             DispatchQueue.main.async {
                                 self.save(token: dict!["token"]!)
                                 self.addTransitionBetweenViewControllers(nameStoryBoard: "Account", identifierController: "App")
                             }
-                        } else {
-                            print("No readable data received in response TOKEN")
                         }
                     }
+                } else {
+                    print("No readable data received in response TOKEN")
                 }
             }
             

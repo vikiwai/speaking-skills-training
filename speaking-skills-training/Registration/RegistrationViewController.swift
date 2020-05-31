@@ -74,24 +74,23 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode != 200 {
-                        print(httpResponse)
-                        
-                        DispatchQueue.main.async {
-                            self.addAlert(alertTitle: "Wrong", alertMessage: "")
-                        }
-                        return
-                    } else {
-                        if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
-                            print("response: ", utf8Representation)
+                if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
+                    print("response: ", utf8Representation)
+                    
+                    if let httpResponse = response as? HTTPURLResponse {
+                        if httpResponse.statusCode != 200 {
+                            DispatchQueue.main.async {
+                                self.addAlert(alertTitle: "Validation error", alertMessage: utf8Representation)
+                            }
                             
+                            return
+                        } else {
                             DispatchQueue.main.async {
                                 self.postRequestGenerateToken()
                             }
-                        } else {
-                            print("No readable data received in response CREATE USER")
                         }
+                    } else {
+                        print("No readable data received in response CREATE USER")
                     }
                 }
             }
@@ -127,28 +126,27 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode != 200 {
-                        print(httpResponse)
-                        
-                        DispatchQueue.main.async {
-                            self.addAlert(alertTitle: "Wrong", alertMessage: "")
-                        }
-                        return
-                    } else {
-                        if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
-                            print("response: ", utf8Representation)
+                if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
+                    print("response: ", utf8Representation)
+                    
+                    if let httpResponse = response as? HTTPURLResponse {
+                        if httpResponse.statusCode != 200 {
+                            DispatchQueue.main.async {
+                                self.addAlert(alertTitle: "Error", alertMessage: utf8Representation)
+                            }
                             
+                            return
+                        } else {
                             let dict = utf8Representation.toJSON() as? [String: String]
                             
                             DispatchQueue.main.async {
                                 self.save(token: dict!["token"]!)
                                 self.addTransitionBetweenViewControllers(nameStoryBoard: "Account", identifierController: "App")
                             }
-                        } else {
-                            print("No readable data received in response TOKEN")
                         }
                     }
+                } else {
+                    print("No readable data received in response TOKEN")
                 }
             }
             
@@ -207,13 +205,13 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
-
+        
         if let nextResponder = textField.superview?.viewWithTag(nextTag) {
             nextResponder.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
         }
-
+        
         return true
     }
     
