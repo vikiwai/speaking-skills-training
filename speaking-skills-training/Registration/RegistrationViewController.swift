@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
-class RegistrationViewController: UIViewController {
-
+class RegistrationViewController: UIViewController, UITextFieldDelegate {
+    
     // MARK: Properties
     
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -18,6 +19,8 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var reenteredPasswordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    
+    var authToken: NSManagedObject!
     
     // MARK: Actions
     
@@ -32,7 +35,7 @@ class RegistrationViewController: UIViewController {
     private func passwordCheck() -> Bool {
         var confirmed = false
         
-        if passwordTextField.text == reenteredPasswordTextField.text! {
+        if passwordTextField.text! == reenteredPasswordTextField.text! {
             confirmed = true
         } else {
             DispatchQueue.main.async {
@@ -45,7 +48,7 @@ class RegistrationViewController: UIViewController {
     }
     
     private func postRequestCreateNewUser() {
-        var request = URLRequest(url: URL(string: "")!) // MARK: TODO
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/User")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         
@@ -64,34 +67,32 @@ class RegistrationViewController: UIViewController {
             
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
-            let task = session.dataTask(with: request) {
-                (responseData, response, responseError) in guard responseError == nil else {
-                    print(responseError as Any)
+            
+            let task = session.dataTask(with: request) { (responseData, response, responseError) in
+                if responseError != nil {
+                    print("responseError: ", responseError.debugDescription as Any)
                     return
                 }
                 
-                if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
-                    print("response: ", utf8Representation)
-                    
-                    let dict = utf8Representation.toJSON() as? [String: String]
-                    
-                    print(dict ?? "NULL SIGN-UP")
-                    
-                    if dict!["status"]! == "200" {
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode != 200 {
+                        print(httpResponse)
+                        
                         DispatchQueue.main.async {
-                            // self.save(token: dict!["token"]!, email: self.inputEmailField.text!)
-                            
-                            self.postRequestGenerateToken()
-                            
-                            self.addTransitionBetweenViewControllers(nameController: "Registration", identifierController: "App")
+                            self.addAlert(alertTitle: "Wrong", alertMessage: "")
                         }
+                        return
                     } else {
-                        print("Validation error")
-                        self.addAlert(alertTitle: "Validation error",
-                                      alertMessage: "* is required")
+                        if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
+                            print("response: ", utf8Representation)
+                            
+                            DispatchQueue.main.async {
+                                self.postRequestGenerateToken()
+                            }
+                        } else {
+                            print("No readable data received in response CREATE USER")
+                        }
                     }
-                } else {
-                    print("No readable data received in response SIGN-UP")
                 }
             }
             
@@ -103,7 +104,7 @@ class RegistrationViewController: UIViewController {
     }
     
     private func postRequestGenerateToken() {
-        var request = URLRequest(url: URL(string: "")!) // MARK: TODO
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/Auth/login")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         
@@ -119,28 +120,35 @@ class RegistrationViewController: UIViewController {
             
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
-            let task = session.dataTask(with: request) {
-                (responseData, response, responseError) in guard responseError == nil else {
-                    print(responseError as Any)
+            
+            let task = session.dataTask(with: request) { (responseData, response, responseError) in
+                if responseError != nil {
+                    print("responseError: ", responseError.debugDescription as Any)
                     return
                 }
                 
-                if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
-                    print("response: ", utf8Representation)
-                    
-                    if utf8Representation == "Wrong password" {
-                        self.addAlert(alertTitle: "Password error",
-                        alertMessage: "Wrong password")
-                    } else {
-                        let dict = utf8Representation.toJSON() as? [String: String]
-                        print("DICT")
-                        print(dict ?? "NULL TOKEN")
-                        print("TOKEN")
-                        print(dict!["token"]!)
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode != 200 {
+                        print(httpResponse)
                         
+                        DispatchQueue.main.async {
+                            self.addAlert(alertTitle: "Wrong", alertMessage: "")
+                        }
+                        return
+                    } else {
+                        if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
+                            print("response: ", utf8Representation)
+                            
+                            let dict = utf8Representation.toJSON() as? [String: String]
+                            
+                            DispatchQueue.main.async {
+                                self.save(token: dict!["token"]!)
+                                self.addTransitionBetweenViewControllers(nameStoryBoard: "Account", identifierController: "App")
+                            }
+                        } else {
+                            print("No readable data received in response TOKEN")
+                        }
                     }
-                } else {
-                    print("No readable data received in response TOKEN")
                 }
             }
             
@@ -151,12 +159,35 @@ class RegistrationViewController: UIViewController {
         }
     }
     
-    private func addAlert(alertTitle: String, alertMessage: String) {
+    // MARK: Core Data methods
+    
+    func save(token: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Token", in: managedContext)!
+        
+        let thisToken = NSManagedObject(entity: entity, insertInto: managedContext)
+        thisToken.setValue(token, forKeyPath: "token")
+        
+        do {
+            try managedContext.save()
+            authToken = thisToken
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    // MARK: Present methods
+    
+    func addAlert(alertTitle: String, alertMessage: String) {
         let alertController = UIAlertController(title: alertTitle,
                                                 message: alertMessage,
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Okay", style: UIAlertAction.Style.default) {
-                       UIAlertAction in NSLog("OK")
+            UIAlertAction in NSLog("OK")
         }
         
         alertController.addAction(okAction)
@@ -164,31 +195,45 @@ class RegistrationViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func addTransitionBetweenViewControllers(nameController: String, identifierController: String) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: nameController, bundle: nil)
+    func addTransitionBetweenViewControllers(nameStoryBoard: String, identifierController: String) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: nameStoryBoard, bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: identifierController)
-        // as! ClassViewController
         
         newViewController.modalPresentationStyle = .fullScreen
+        newViewController.modalTransitionStyle = .flipHorizontal
         
         self.present(newViewController, animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+
+        return true
     }
     
     // MARK: Loading the view
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
