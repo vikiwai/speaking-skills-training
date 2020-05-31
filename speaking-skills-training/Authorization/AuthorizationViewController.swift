@@ -86,6 +86,8 @@ class AuthorizationViewController: UIViewController {
         }
     }
     
+    // MARK: Core Data methods
+    
     func save(token: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -105,7 +107,9 @@ class AuthorizationViewController: UIViewController {
         }
     }
     
-    private func addAlert(alertTitle: String, alertMessage: String) {
+    // MARK: Present methods
+    
+    func addAlert(alertTitle: String, alertMessage: String) {
         let alertController = UIAlertController(title: alertTitle,
                                                 message: alertMessage,
                                                 preferredStyle: .alert)
@@ -118,7 +122,7 @@ class AuthorizationViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func addTransitionBetweenViewControllers(nameStoryBoard: String, identifierController: String) {
+    func addTransitionBetweenViewControllers(nameStoryBoard: String, identifierController: String) {
         let storyBoard: UIStoryboard = UIStoryboard(name: nameStoryBoard, bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: identifierController)
         
