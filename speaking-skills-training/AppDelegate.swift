@@ -35,6 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
+    /*
+     The NSPersistentContainer consists of a set of objects that facilitate saving and retrieving information from Core Data.
+     Inside this container is an object to manage the Core Data state as a whole, an object representing the Data Model, and so on.
+     */
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
