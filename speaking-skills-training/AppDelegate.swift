@@ -80,3 +80,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// MARK: Extensions
+
+extension String {
+    func toJSON() -> Any? {
+        guard let data = self.data(using: .utf8, allowLossyConversion: true) else {
+            return nil
+        }
+        
+        return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+    }
+}

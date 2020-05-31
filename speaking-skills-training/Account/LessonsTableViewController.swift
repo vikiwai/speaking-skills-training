@@ -16,7 +16,39 @@ class LessonsTableViewController: UITableViewController {
     
     // MARK: Private methods
     
+    private func getRequestListOfTopics() {
+        let request = URLRequest(url: URL(string: "")!) // MARK: TODO
+        print("request: ", request as Any)
+        let session = URLSession(configuration: .default)
+        
+        let task = session.dataTask(with: request) { (responseData, response, responseError) in
+            guard responseError == nil else {
+                print("error: ", responseError as Any)
+                return
+            }
+            
+            print("data: ", responseData!)
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                let array = try decoder.decode([Lesson].self, from: responseData!)
+                
+                DispatchQueue.main.async {
+                    self.lessons = array
+                    self.tableView.reloadData()
+                }
+            } catch {
+                print("Something was wrong with getting list of topics", error)
+            }
+        }
+        
+        task.resume()
+    }
+    
     private func loadSampleLessons() {
+        
+        /*
         
         guard let lesson1 = Lesson(number: 1, title: "Describe a leisure activity that you do with your family", category: "Family topic", level: "B2", description: "You should say: what activity it is, when you do it with your family, how much you enjoy it and explain how this is helpful for you and your family.", rules: "You will have to talk about the topic for one to two minutes. You have one minute to think about what you are going to say. You can make some notes to help you if you wish.", modelAnswer: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.") else {
             fatalError("Unable to instantiate lesson1")
@@ -29,8 +61,8 @@ class LessonsTableViewController: UITableViewController {
         guard let lesson3 = Lesson(number: 3, title: "Describe some local news that people in your locality are interested in", category: "Social topic", level: "C1", description: "You should say: what the news is, how you know about this news, how the news involves your locality and explain why people in your area are interested in the news.", rules: "You will have to talk about the topic for one to two minutes. You have one minute to think about what you are going to say. You can make some notes to help you if you wish.", modelAnswer: "I live in a rather quiet and small town, and nothing much really happens in it except some occasional bird watching (yes, many foreign birds visit it) and spending some lazy times in some local café and restaurants. Luckily, however, there is a local newspaper in my town for us to read, which provides us with local news about what happens in and around our town. So, today, I would like to talk about one such news which the local people are really interested in.") else {
             fatalError("Unable to instantiate lesson3")
         }
-        
-        lessons += [lesson1, lesson2, lesson3]
+        */
+        //lessons += [lesson1, lesson2, lesson3]
         
         // MARK: TO-DO AUTO INIT
         
@@ -83,13 +115,13 @@ class LessonsTableViewController: UITableViewController {
         
         let lesson = lessons[indexPath.row]
         
-        cell.topicNumber = lesson.number
-        cell.titleLabel!.text = lesson.title
-        cell.categoryLabel!.text = lesson.category
-        cell.levelLable!.text = lesson.level
-        cell.topicDescription = lesson.description
+        cell.topicNumber = lesson.id
+        cell.titleLabel!.text = lesson.name
+        cell.categoryLabel!.text = lesson.theme
+        cell.levelLable!.text = lesson.levelName
+        cell.topicDescription = lesson.questions
         cell.topicRules = lesson.rules
-        cell.topicModelAnswer = lesson.modelAnswer
+        cell.topicModelAnswer = lesson.text
         
         cell.delegate = self
         

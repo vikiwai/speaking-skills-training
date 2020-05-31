@@ -128,19 +128,16 @@ class RegistrationViewController: UIViewController {
                 if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
                     print("response: ", utf8Representation)
                     
-                    let dict = utf8Representation.toJSON() as? [String: String]
-                    
-                    print(dict ?? "NULL TOKEN")
-                    
-                    if dict!["status"]! == "200" {
-                        DispatchQueue.main.async {
-                            print(dict!["token"]!)
-                            // self.save(token: dict!["token"]!, email: self.inputEmailField.text!)
-                        }
-                    } else {
-                        print("Password error")
+                    if utf8Representation == "Wrong password" {
                         self.addAlert(alertTitle: "Password error",
-                                      alertMessage: "Wrong password")
+                        alertMessage: "Wrong password")
+                    } else {
+                        let dict = utf8Representation.toJSON() as? [String: String]
+                        print("DICT")
+                        print(dict ?? "NULL TOKEN")
+                        print("TOKEN")
+                        print(dict!["token"]!)
+                        
                     }
                 } else {
                     print("No readable data received in response TOKEN")
@@ -194,16 +191,4 @@ class RegistrationViewController: UIViewController {
     }
     */
 
-}
-
-// MARK: Extensions
-
-extension String {
-    func toJSON() -> Any? {
-        guard let data = self.data(using: .utf8, allowLossyConversion: true) else {
-            return nil
-        }
-        
-        return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-    }
 }

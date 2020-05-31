@@ -8,34 +8,27 @@
 
 import UIKit
 
-class Lesson {
+class Lesson: NSObject, Decodable {
     
     // MARK: Properties
     
-    var number: Int
-    var title: String
-    var category: String
-    var level: String
-    var description: String
+    var id: Int
+    var theme: String
+    var name: String
+    var text: String
+    var levelName: String
+    var questions: String
     var rules: String
-    var modelAnswer: String
-    
+
     // MARK: Initialization
     
-    init?(number: Int, title: String, category: String, level: String, description: String, rules: String, modelAnswer: String) {
-        
-        // Initialization should fail if there are empty properties.
-        if number == 0 || title.isEmpty || category.isEmpty || level.isEmpty || description.isEmpty || rules.isEmpty || modelAnswer.isEmpty {
-            return nil
-        }
-            
-        // Initialize stored properties.
-        self.number = number
-        self.title = title
-        self.category = category
-        self.level = level
-        self.description = description
+    init?(id: Int, theme: String, name: String, text: String, levelName: String, questions: String, rules: String) {
+        self.id = id
+        self.theme = theme
+        self.name = name
+        self.text = text
+        self.levelName = levelName
+        self.questions = questions
         self.rules = rules
-        self.modelAnswer = modelAnswer
     }
 }
