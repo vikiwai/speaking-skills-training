@@ -132,7 +132,6 @@
                                             </state>
                                             <connections>
                                                 <action selector="didTapArchiveButton:" destination="W2O-lg-lAh" eventType="touchUpInside" id="HPf-cN-9yo"/>
-                                                <segue destination="6aE-YN-hCo" kind="presentation" identifier="toArchiveTopics" animates="NO" modalPresentationStyle="fullScreen" id="mIF-gS-OqU"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -827,7 +826,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mIF-gS-OqU"/>
+        <segue reference="Kcz-na-Xt3"/>
         <segue reference="POp-0z-XPd"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class LessonsTableViewController: UITableViewController {
-
+    
     // MARK: Properties
     
     var authToken: String?
@@ -57,6 +57,8 @@ class LessonsTableViewController: UITableViewController {
         task.resume()
     }
     
+    // MARK: Core Data methods
+    
     func fetchAuthToken() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -75,44 +77,40 @@ class LessonsTableViewController: UITableViewController {
         }
     }
     
+    // MARK: Loading the view
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         fetchAuthToken()
         getRequestListOfTopics()
-        
     }
-
-    // MARK: - Table view data source
-
+    
+    // MARK: Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return lessons.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "LessonTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? LessonTableViewCell  else {
             fatalError("The dequeued cell is not an instance of LessonTableViewCell.")
         }
 
-        // Configure the cell.
-        
         let lesson = lessons[indexPath.row]
         
         cell.topicNumber = lesson.id
         cell.titleLabel!.text = lesson.name
         cell.categoryLabel!.text = lesson.theme
         cell.levelLable!.text = lesson.levelName
-        //cell.topicDescription = lesson.questions
-        //cell.topicRules = lesson.rules
         cell.topicModelAnswer = lesson.text
+        //cell.topicDescription = lesson.questions
         
         cell.delegate = self
         
@@ -120,66 +118,72 @@ class LessonsTableViewController: UITableViewController {
     }
     
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
-extension LessonsTableViewController: LessonTableViewCellDelegate {
-//    func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, description: String, rules: String, modelAnswer: String) {
-//        let sb = UIStoryboard(name: "Account", bundle: nil)
-//        let vc = sb.instantiateViewController(withIdentifier: "Topic") as! TopicViewController
-//        vc.modalPresentationStyle = .fullScreen
-//        vc.setConfigurationModel(configurationModel: .init(topicsNumber: number, titleText: title, categoryText: category, levelText: level, desriptionText: description, rulesText: rules, modelAnswerText: modelAnswer))
-//        self.navigationController?.pushViewController(vc, animated: true)
-//    }
-    
+// MARK: Extensions
+
+extension LessonsTableViewController: LessonTableViewCellDelegate {    
     func lessonTableViewCell(_ cell: LessonTableViewCell, number: Int, title: String, category: String, level: String, modelAnswer: String) {
-        let sb = UIStoryboard(name: "Account", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: "Topic") as! TopicViewController
-        vc.modalPresentationStyle = .fullScreen
-        vc.setConfigurationModel(configurationModel: .init(topicsNumber: number, titleText: title, categoryText: category, levelText: level, modelAnswerText: modelAnswer))
-        self.navigationController?.pushViewController(vc, animated: true)
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Account", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Topic") as! TopicViewController
+
+        newViewController.modalPresentationStyle = .fullScreen
+        
+        newViewController.setConfigurationModel(configurationModel: .init(topicsNumber: number, titleText: title, categoryText: category, levelText: level, modelAnswerText: modelAnswer))
+        
+        self.navigationController?.pushViewController(newViewController, animated: true)
+    }
+    
+    func lessonTableViewCell(_ cell: LessonTableViewCell) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Account", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Archive") as! ArchiveTableViewController
+
+        newViewController.modalPresentationStyle = .fullScreen
+        
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
 }
