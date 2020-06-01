@@ -176,7 +176,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFJ-km-SIR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1458" y="-686"/>
+            <point key="canvasLocation" x="1302" y="-1002"/>
         </scene>
         <!--Topic-->
         <scene sceneID="Vly-qV-8Qg">
@@ -491,7 +491,6 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="didCheckMistakesButtonTapped:" destination="dpW-0x-3vY" eventType="touchUpInside" id="28Y-tg-by6"/>
-                                                        <segue destination="a2L-4f-SAW" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="fg7-VH-u1v"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -572,7 +571,7 @@
         <!--Text-->
         <scene sceneID="djr-Lq-lmp">
             <objects>
-                <viewController id="cOh-v3-UOu" customClass="TextViewController" customModule="speaking_skills_training" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Text" id="cOh-v3-UOu" customClass="TextViewController" customModule="speaking_skills_training" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TIm-rv-gtd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -618,13 +617,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="94k-gf-z4k"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Text" id="ESD-HL-ORT">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="N1k-zj-WfV">
-                            <connections>
-                                <segue destination="6aE-YN-hCo" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="2su-Xc-9jm"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Text" id="ESD-HL-ORT"/>
                     <connections>
                         <outlet property="correctnessLabel" destination="bvA-r9-bge" id="wH4-1l-hKL"/>
                         <outlet property="textView" destination="b3B-bP-tNM" id="JIl-Pc-F9v"/>
@@ -632,7 +625,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZw-wk-5vt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4178" y="-448"/>
+            <point key="canvasLocation" x="4966" y="-306"/>
         </scene>
         <!--Account-->
         <scene sceneID="DQA-QX-iHC">
@@ -767,7 +760,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vVT-29-4ex" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="547.82608695652175" y="-686.38392857142856"/>
+            <point key="canvasLocation" x="548" y="-1001"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PEB-8o-YEy">
@@ -821,11 +814,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXj-3g-z2G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4177" y="322"/>
+            <point key="canvasLocation" x="4158" y="-306"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fg7-VH-u1v"/>
         <segue reference="moZ-BW-t8t"/>
     </inferredMetricsTieBreakers>
     <resources>

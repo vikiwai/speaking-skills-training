@@ -224,7 +224,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 
                 if result!.isFinal {
                     self.pronouncedText = self.text!
-                    print(self.pronouncedText!)
+                    //print(self.pronouncedText!)
                     
                     self.check = self.checkCorrectSpokenText(sourceText: self.modelAnswerTextView.text, spokenText: self.modelAnswerTextView.text)
                     
@@ -233,7 +233,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                         self.check[value].1 = false
                     }
                     
-                    print(self.check)
+                    //print(self.check)
                     
                     var average: Double = 0
                     for item in self.check {
@@ -246,19 +246,19 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                     
                     self.averagePause = transcription.averagePauseDuration
                     self.speakingRate = transcription.speakingRate
-                
+                    
                     var pitchVoicingArray: Array<Double> = []
                     var jitterArray: Array<Double> = []
                     var shimmerArray: Array<Double> = []
                     
                     /*
-                    for segment in result!.bestTranscription.segments {
-                        guard let voiceAnalytics = segment.voiceAnalytics else { continue }
-                        pitchVoicingArray = voiceAnalytics.voicing.acousticFeatureValuePerFrame
-                        jitterArray = voiceAnalytics.jitter.acousticFeatureValuePerFrame
-                        shimmerArray = voiceAnalytics.shimmer.acousticFeatureValuePerFrame
-                    }
-                    */
+                     for segment in result!.bestTranscription.segments {
+                     guard let voiceAnalytics = segment.voiceAnalytics else { continue }
+                     pitchVoicingArray = voiceAnalytics.voicing.acousticFeatureValuePerFrame
+                     jitterArray = voiceAnalytics.jitter.acousticFeatureValuePerFrame
+                     shimmerArray = voiceAnalytics.shimmer.acousticFeatureValuePerFrame
+                     }
+                     */
                     
                     self.jitter = self.getAverage(array: jitterArray)
                     self.shimmer = self.getAverage(array: shimmerArray)
@@ -291,7 +291,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             var pitchVoicing: Double
         }
         
-        let params: CreateAttemptRequest = CreateAttemptRequest(topicId: id, speakingRate: 124.7, startTime: startTime!, finishTime: finishTime!, ext: ext, recording: recording!, pronouncedText: pronouncedText!, correctness: correctness!, averagePause: 10.3, shimmer: 1, jitter: 1, pitchVoicing: 1);
+        let params: CreateAttemptRequest = CreateAttemptRequest(topicId: id, speakingRate: 123.4, startTime: startTime!, finishTime: finishTime!, ext: ext, recording: recording!, pronouncedText: pronouncedText!, correctness: correctness!, averagePause: 87.2, shimmer: 1, jitter: 1, pitchVoicing: 1);
         
         let encoder = JSONEncoder()
         
@@ -319,7 +319,16 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                             return
                         } else {
                             DispatchQueue.main.async {
-                                print("WOW 2")
+                                let alertController = UIAlertController(title: "Successfully!",
+                                                                        message: "Your attempt has been saved",
+                                                                        preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "Okay", style: UIAlertAction.Style.default) {
+                                    UIAlertAction in NSLog("OK")
+                                }
+                                
+                                alertController.addAction(okAction)
+                                
+                                self.present(alertController, animated: true, completion: nil)
                             }
                         }
                     } else {
@@ -344,7 +353,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
         }
         
         let arrayOfWordsForSpokenText = spokenText.split(separator: " ")
-    
+        
         var params: [(String, Bool)] = []
         
         var indexSourceText: Int = 0
@@ -475,7 +484,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                     //indexSpokenText += 1
                 }
             }
-           
+            
             //print("The word '\(params[n].0)' is \(params[n].1) recognized")
         }
         

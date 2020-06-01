@@ -166,7 +166,7 @@ class LessonsTableViewController: UITableViewController {
 
 // MARK: Extensions
 
-extension LessonsTableViewController: LessonTableViewCellDelegate {    
+extension LessonsTableViewController: LessonTableViewCellDelegate {
     func lessonTableViewCell(_ cell: LessonTableViewCell, id: Int, titleText: String, categoryText: String, levelText: String, modelAnswerText: String, descriptionText: String) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Account", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "Topic") as! TopicViewController
@@ -178,11 +178,13 @@ extension LessonsTableViewController: LessonTableViewCellDelegate {
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
-    func lessonTableViewCell(_ cell: LessonTableViewCell) {
+    func lessonTableViewCell(_ cell: LessonTableViewCell, id: Int) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Account", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "Archive") as! ArchiveTableViewController
 
         newViewController.modalPresentationStyle = .fullScreen
+        
+        newViewController.setConfigurationModel(configurationModel: .init(id: id))
         
         self.navigationController?.pushViewController(newViewController, animated: true)
     }

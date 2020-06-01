@@ -11,7 +11,18 @@ import CoreData
 
 class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    struct ConfigurationModel {
+           public let id: Int
+    }
     // MARK: Properties
+    
+    var configurationModel: ConfigurationModel?
+    var id: Int?
+    
+    private func setViewElements() {
+           guard let configurationModel = self.configurationModel else { return }
+           self.id = configurationModel.id
+    }
     
     var authToken: String?
     var attempts: Array<Attempt> = Array();
@@ -43,7 +54,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: Server methods
     
     private func getRequestListOfAttempts() {
-        var request = URLRequest(url: URL(string: "http://37.230.114.248/Attempt/topic?topicId=6")!)
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/Attempt/topic?topicId=\(id!)")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(authToken ?? "")", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
@@ -403,9 +414,14 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         return (params)
     }
     
+    public func setConfigurationModel(configurationModel: ConfigurationModel) {
+           self.configurationModel = configurationModel
+       }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setViewElements()
         fetchAuthToken()
         getRequestListOfAttempts()
     }
@@ -435,6 +451,8 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         
         let attempt = attempts[indexPath.row]
         
+        cell.mistakes = checkCorrectSpokenText(sourceText: attempt.originalText, spokenText: attempt.originalText)
+        
         cell.scoreLabel.text = "Score for \(attempt.id) attempt (\(attempt.startTime.prefix(10)))"
         cell.correctSpokenTextLabel.text = "Pronounced text: " + String(format: "%.2f", attempt.correctness * 100) + " %"
         cell.correctPausesLabel.text = "Correct pauses: " + String(format: "%.2f", attempt.averagePause) + " % of time"
@@ -460,6 +478,10 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         } else {
             cell.shimmerLabel.text = "Major changes in intonation"
         }
+        
+        cell.attemptId = attempt.id
+        
+        cell.delegate = self
         
         return cell
     }
@@ -510,4 +532,17 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
     }
     */
 
+}
+
+extension ArchiveTableViewController: AttemptTableViewCellDelegate {
+    func attemptTableViewCell(_ cell: AttemptTableViewCell, mistakes: [(String, Bool)], correctness: String) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Account", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Text") as! TextViewController
+
+        newViewController.modalPresentationStyle = .popover
+        
+        newViewController.setConfigurationModel(configurationModel: .init(mistakes: mistakes, correctness: correctness))
+        
+        self.navigationController?.pushViewController(newViewController, animated: true)
+    }
 }

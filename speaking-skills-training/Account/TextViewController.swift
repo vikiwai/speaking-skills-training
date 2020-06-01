@@ -9,16 +9,37 @@
 import UIKit
 
 class TextViewController: UIViewController {
-
+        
+    struct ConfigurationModel {
+        public let mistakes: [(String, Bool)]
+        public let correctness: String
+    }
+    
+    var configurationModel: ConfigurationModel?
+    
     @IBOutlet weak var correctnessLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     
-    var arrayOfMistakes: [(String, Bool)] = [("One of the great", true), ("advantages", false), ("of having", true), ("a family", false), ("with", true)]
+    var arrayOfMistakes: [(String, Bool)]!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func setViewElements() {
+        guard let configurationModel = self.configurationModel else { return }
+        self.arrayOfMistakes = configurationModel.mistakes
+        self.correctnessLabel.text = configurationModel.correctness
+        self.texty()
+    }
+    
+    public func setConfigurationModel(configurationModel: ConfigurationModel) {
+        self.configurationModel = configurationModel
+    }
+    
+    func texty() {
+        for item in stride(from: 0, to: arrayOfMistakes.count - 5, by: 5){
+                   let value = Int.random(in: item..<item+5)
+                   arrayOfMistakes[value].1 = false
+        }
         
-        var mutableString = NSMutableAttributedString()
+        let mutableString = NSMutableAttributedString()
         var itemMutableString = NSMutableAttributedString()
         var spaceMutableString = NSMutableAttributedString()
         
@@ -37,8 +58,12 @@ class TextViewController: UIViewController {
         }
         
         textView.attributedText = mutableString
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        self.setViewElements()
     }
     
 

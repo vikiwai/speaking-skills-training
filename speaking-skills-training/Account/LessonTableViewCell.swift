@@ -34,7 +34,7 @@ class LessonTableViewCell: UITableViewCell {
     }
     
     @IBAction func didTapArchiveButton(_ sender: Any) {
-        self.delegate?.lessonTableViewCell(self)
+        self.delegate?.lessonTableViewCell(self, id: topicNumber ?? 0)
     }
     
     // MARK: Overrided methods
@@ -54,5 +54,5 @@ class LessonTableViewCell: UITableViewCell {
 
 protocol LessonTableViewCellDelegate: AnyObject {
     func lessonTableViewCell(_ cell: LessonTableViewCell, id: Int, titleText: String, categoryText: String, levelText: String, modelAnswerText: String, descriptionText: String)
-    func lessonTableViewCell(_ cell: LessonTableViewCell)
+    func lessonTableViewCell(_ cell: LessonTableViewCell, id: Int)
 }
