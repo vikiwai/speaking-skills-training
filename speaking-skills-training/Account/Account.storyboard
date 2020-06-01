@@ -561,6 +561,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="kQq-eH-phB" id="Upp-pn-HT6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMl-ml-jJf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -822,8 +825,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Kcz-na-Xt3"/>
-        <segue reference="POp-0z-XPd"/>
+        <segue reference="fg7-VH-u1v"/>
+        <segue reference="moZ-BW-t8t"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="archivebox" catalog="system" width="128" height="106"/>

@@ -172,9 +172,9 @@
 				5BF0DDEB24748F6B00A4C937 /* ArchiveTableViewController.swift */,
 				5BF0DDED24748FA700A4C937 /* AttemptTableViewCell.swift */,
 				5BF0DDEF2475A23400A4C937 /* Attempt.swift */,
+				5BF0DDF12477495400A4C937 /* TextViewController.swift */,
 				5BC63E702452514700433563 /* StatisticsViewController.swift */,
 				5BC63E6C24505ED400433563 /* AccountViewController.swift */,
-				5BF0DDF12477495400A4C937 /* TextViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -456,6 +456,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "speaking-skills-training/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -479,6 +480,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "speaking-skills-training/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

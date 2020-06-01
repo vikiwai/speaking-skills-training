@@ -7,31 +7,78 @@
 //
 
 import UIKit
+import CoreData
 
 class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: Properties
     
+    var authToken: String?
     var attempts: Array<Attempt> = Array();
     var correctSpokenText: [(String, Bool)]!
     
-    // MARK: Private methods
+    @IBOutlet weak var tableView: UITableView!
     
-    private func loadSampleAttempts() {
-        
-        // MARK: TO-DO AUTO INIT
-        guard let attempt1 = Attempt(path: URL(fileURLWithPath: ""), title: "Describe a leisure activity that you do with your family", number: 3, date: "20.05.2020",
-                                     text: "When of the great advantages of having a family with active d members is that they never really run out of ideas spend and enjoy quality  by involved with different kinds of leisurely activities I am  that I have one  those active families who never hesitate to enjoy different leisure d activities whenever d an opportunity g h arrives", time: 27.423625) else {
-            fatalError("Unable to instantiate lesson1")
+    // MARK: Core Data methods
+    
+    func fetchAuthToken() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
         }
         
-        attempts += [attempt1]
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Token")
         
-        // Getting score for every attempts
-        correctSpokenText = checkCorrectSpokenText(sourceText: "One of the great advantages of having a family with active family members is that they never really run out of ideas to spend and enjoy quality time by getting involved with different kinds of leisurely activities. I am lucky that I have one of those active families who never hesitate to enjoy different leisure activities whenever an opportunity arrives.", spokenText: attempt1.text)
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                authToken = (data.value(forKey: "token") as! String)
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    
+    // MARK: Server methods
+    
+    private func getRequestListOfAttempts() {
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/Attempt/topic?topicId=6")!)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(authToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
         
-        //var kek = checkVocabularyLevel(text: "One of the great advantages of never hesitate to enjoy different leisure activities whenever an opportunity arrives.")
+        print("request: ", request as Any)
         
+        let session = URLSession(configuration: .default)
+        
+        let decoder = JSONDecoder()
+        
+        let task = session.dataTask(with: request) { (responseData, response, responseError) in
+            if responseError != nil {
+                print("responseError: ", responseError.debugDescription as Any)
+                return
+            }
+            
+            print("data: ", responseData!)
+            
+            struct Attempts: Decodable {
+                let attempts: Array<Attempt>
+            }
+            
+            do {
+                let array = try decoder.decode(Attempts.self, from: responseData!)
+                
+                DispatchQueue.main.async {
+                    self.attempts = array.attempts
+                    self.tableView.reloadData()
+                }
+            } catch {
+                print("Something was wrong with getting list of topics", error)
+            }
+        }
+        
+        task.resume()
     }
     
     // MARK: Private function
@@ -358,15 +405,9 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        // Load sample data.
-        loadSampleAttempts()
+        fetchAuthToken()
+        getRequestListOfAttempts()
     }
 
     // MARK: - Table view data source
@@ -394,26 +435,31 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         
         let attempt = attempts[indexPath.row]
         
-        cell.scoreLabel.text = "Score for the attempt #\(attempt.number) — (\(attempt.date))"
-        cell.path = attempt.path
+        cell.scoreLabel.text = "Score for \(attempt.id) attempt (\(attempt.startTime.prefix(10)))"
+        cell.correctSpokenTextLabel.text = "Pronounced text: " + String(format: "%.2f", attempt.correctness * 100) + " %"
+        cell.correctPausesLabel.text = "Correct pauses: " + String(format: "%.2f", attempt.averagePause) + " % of time"
+        cell.speechSpeedLabel.text = "Speech speed: " + String(format: "%.1f", attempt.speakingRate) + " words per minute"
         
-        var errors: Double = 0
-               
-        for item in correctSpokenText {
-                if item.1 == false {
-                       errors += 1
-                }
-            }
-               
-        let correctness = (Double(correctSpokenText.count) - errors) * 100 / Double(correctSpokenText.count)
+        //cell.vocabularyLevelLabel.text = checkVocabularyLevel(text: attempt.originalText)
+        cell.vocabularyLevelLabel.text = "Vocabulary level: B2"
         
-        cell.correctSpokenTextLabel.text = "Correct spoken text: " + String(format: "%.2f", correctness) + " %"
+        if attempt.pitchVoicing < 0.5 {
+            cell.pitchLabel.text = "The speech is dominated by the low tone"
+        } else {
+            cell.pitchLabel.text = "The speech is dominated by the high tone"
+        }
         
-        cell.speechSpeedLabel.text = "Speech speed: " + String(format: "%.1f", Double(correctSpokenText.count) * 60 / attempt.time) + " words per minute"
+        if attempt.jitter < 0.5 {
+            cell.jitterLabel.text = "Prevalence of monotonous voices"
+        } else {
+            cell.jitterLabel.text = "Prevalence of variegated voices"
+        }
         
-        cell.jitterLabel.text = "Stable voice"
-        cell.pitchLabel.text = "The speech is dominated by the high tone"
-        cell.shimmerLabel.text = "Good intonation voice"
+        if attempt.shimmer < 0.5 {
+            cell.shimmerLabel.text = "Minor changes in intonation"
+        } else {
+            cell.shimmerLabel.text = "Major changes in intonation"
+        }
         
         return cell
     }

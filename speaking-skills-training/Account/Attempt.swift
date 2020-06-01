@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Attempt {
+class Attempt: NSObject, Decodable {
     
     // MARK: Properties
     

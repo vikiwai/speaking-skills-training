@@ -13,7 +13,7 @@ class AttemptTableViewCell: UITableViewCell {
 
     // MARK: Properties
     
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel! // 1
     @IBOutlet weak var listeningButton: UIButton!
     
     var mistakes: [(String, Bool)]!
@@ -40,15 +40,16 @@ class AttemptTableViewCell: UITableViewCell {
         //vc.arrayOfMistakes = mistakes
         //vc.correctnessLabel.text! = correctSpokenTextLabel.text!
     }
+    
     // MARK: Score properties
     
-    @IBOutlet weak var correctSpokenTextLabel: UILabel!
-    @IBOutlet weak var correctPausesLabel: UILabel!
-    @IBOutlet weak var pitchLabel: UILabel!
-    @IBOutlet weak var jitterLabel: UILabel!
-    @IBOutlet weak var shimmerLabel: UILabel!
-    @IBOutlet weak var speechSpeedLabel: UILabel!
-    @IBOutlet weak var vocabularyLevelLabel: UILabel!
+    @IBOutlet weak var correctSpokenTextLabel: UILabel! // 2
+    @IBOutlet weak var correctPausesLabel: UILabel! // 3
+    @IBOutlet weak var pitchLabel: UILabel! // 4
+    @IBOutlet weak var jitterLabel: UILabel! // 5
+    @IBOutlet weak var shimmerLabel: UILabel! // 6
+    @IBOutlet weak var speechSpeedLabel: UILabel! // 7
+    @IBOutlet weak var vocabularyLevelLabel: UILabel! // 8
     
     // MARK: Private function
     
