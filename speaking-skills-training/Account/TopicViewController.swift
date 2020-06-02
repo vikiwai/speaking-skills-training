@@ -224,7 +224,7 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                 
                 if result!.isFinal {
                     self.pronouncedText = self.text!
-                    //print(self.pronouncedText!)
+                    print(self.pronouncedText!)
                     
                     self.check = self.checkCorrectSpokenText(sourceText: self.modelAnswerTextView.text, spokenText: self.modelAnswerTextView.text)
                     
@@ -232,8 +232,6 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
                         let value = Int.random(in: item..<item+5)
                         self.check[value].1 = false
                     }
-                    
-                    //print(self.check)
                     
                     var average: Double = 0
                     for item in self.check {
