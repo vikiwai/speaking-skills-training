@@ -8,42 +8,132 @@
 
 import UIKit
 import Charts
+import CoreData
 
 class StatisticsViewController: UIViewController {
     
-    let attempts = ["13.04", "17.04", "28.04", "29.04", "2.05", "6.05"]
+    var attempts: Array<Attempt> = Array()
+    
+    // MARK: Date properties
+    
+    var dates: Array<String> = Array()
     
     // MARK: Speaking rate properties
     
     @IBOutlet weak var progressSpeakingRateLabel: UILabel!
     @IBOutlet weak var progressSpeakingRateView: LineChartView!
     
-    let speakingRate = [123.4, 115, 137.5, 143.4, 149, 150.4]
-    let speakingRateTarget = [135, 135, 135, 135, 135, 135]
+    var speakingRate: Array<Double> = Array()
+    var speakingRateTarget: Array<Double> = Array()
     
     // MARK: Pronunciation properties
     
     @IBOutlet weak var pronunciationProgressLabel: UILabel!
     @IBOutlet weak var pronunciationProgressView: LineChartView!
     
-    let pronunciation = [89, 90, 76, 54, 69, 80]
-    let pronunciationTarget = [85, 85, 85, 85, 85, 85]
+    var pronunciation: Array<Double> = Array()
+    var pronunciationTarget: Array<Double> = Array()
     
-    // Called after the controller's view is loaded into memory.
+    // MARK: Core Data properties
+    
+    var authToken: String?
+    
+    // MARK: Core Data methods
+    
+    func fetchAuthToken() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Token")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                authToken = (data.value(forKey: "token") as! String)
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    // MARK: Server methods
+    
+    private func getRequestListOfAttempts() {
+        var request = URLRequest(url: URL(string: "http://37.230.114.248/Attempt/user")!)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(authToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        print("request: ", request as Any)
+        
+        let session = URLSession(configuration: .default)
+        
+        let decoder = JSONDecoder()
+        
+        let task = session.dataTask(with: request) { (responseData, response, responseError) in
+            if responseError != nil {
+                print("responseError: ", responseError.debugDescription as Any)
+                return
+            }
+            
+            print("data: ", responseData!)
+            
+            struct Attempts: Decodable {
+                let attempts: Array<Attempt>
+            }
+            
+            do {
+                let array = try decoder.decode(Attempts.self, from: responseData!)
+                
+                DispatchQueue.main.async {
+                    self.attempts = array.attempts
+                    self.getAllResultsForDisplaying(attempts: self.attempts)
+                }
+            } catch {
+                print("Something was wrong with getting list of topics", error)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    // MARK: Private methods
+    
+    private func getAllResultsForDisplaying(attempts: Array<Attempt>) {
+        for item in attempts {
+            let startIndex = item.startTime.index(item.startTime.startIndex, offsetBy: 5)
+            let endIndex = item.startTime.index(item.startTime.startIndex, offsetBy: 10)
+            
+            dates.append(String(item.startTime[startIndex..<endIndex]))
+            
+            speakingRate.append(item.speakingRate)
+            speakingRateTarget.append(135.0)
+            
+            pronunciation.append(item.correctness * 100)
+            pronunciationTarget.append(85.0)
+        }
+        
+        print(speakingRate)
+        print(speakingRateTarget)
+        print(pronunciation)
+        print(pronunciationTarget)
+        
+        customizeChartSpeakingRate(target: speakingRateTarget, dataPoints: dates, values: speakingRate.map{ Double($0) })
+        customizeChartPronunciation(target: pronunciationTarget, dataPoints: dates, values: pronunciation.map{ Double($0) })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
-        customizeChartSpeakingRate(target: speakingRateTarget, dataPoints: attempts, values: speakingRate.map{ Double($0) })
-        
-        customizeChartPronunciation(target: pronunciationTarget, dataPoints: attempts, values: pronunciation.map{ Double($0) })
+        fetchAuthToken()
+        getRequestListOfAttempts()
     }
     
     // MARK: Private function
     
-    func customizeChartSpeakingRate(target: [Int], dataPoints: [String], values: [Double]) {
+    func customizeChartSpeakingRate(target: [Double], dataPoints: [String], values: [Double]) {
         
         // Set ChartDataEntry for values
         var dataEntries: [ChartDataEntry] = []
@@ -57,7 +147,7 @@ class StatisticsViewController: UIViewController {
         var dataEntriesTarget: [ChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
-            let dataEntry = ChartDataEntry(x: Double(i), y: Double(target[i]))
+            let dataEntry = ChartDataEntry(x: Double(i), y: target[i])
             dataEntriesTarget.append(dataEntry)
         }
         
@@ -98,7 +188,7 @@ class StatisticsViewController: UIViewController {
         progressSpeakingRateView.data = lineChartData
     }
     
-    func customizeChartPronunciation(target: [Int], dataPoints: [String], values: [Double]) {
+    func customizeChartPronunciation(target: [Double], dataPoints: [String], values: [Double]) {
         
         // Set ChartDataEntry
         var dataEntries: [ChartDataEntry] = []
@@ -112,7 +202,7 @@ class StatisticsViewController: UIViewController {
         var dataEntriesTarget: [ChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
-            let dataEntry = ChartDataEntry(x: Double(i), y: Double(target[i]))
+            let dataEntry = ChartDataEntry(x: Double(i), y: target[i])
             dataEntriesTarget.append(dataEntry)
         }
         
