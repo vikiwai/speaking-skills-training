@@ -7,7 +7,7 @@
 //
 
 struct BaseURL {
-    static var url = "http://37.230.114.248"
+    static var url = "http://37.230.114.248/"
 }
 
 enum RequestType {

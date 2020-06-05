@@ -57,7 +57,7 @@ ViewControllerPresentTrait {
     
     private func postRequestCreateNewUser() {
         guard let login = loginTextField.text else { return }
-        var request = URLRequest(url: URL(string: BaseURL.url + "/User")!)
+        var request = URLRequest(url: URL(string: BaseURL.url + "User")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         

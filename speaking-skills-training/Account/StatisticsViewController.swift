@@ -115,11 +115,6 @@ class StatisticsViewController: UIViewController {
             pronunciationTarget.append(85.0)
         }
         
-        print(speakingRate)
-        print(speakingRateTarget)
-        print(pronunciation)
-        print(pronunciationTarget)
-        
         customizeChartSpeakingRate(target: speakingRateTarget, dataPoints: dates, values: speakingRate.map{ Double($0) })
         customizeChartPronunciation(target: pronunciationTarget, dataPoints: dates, values: pronunciation.map{ Double($0) })
     }
