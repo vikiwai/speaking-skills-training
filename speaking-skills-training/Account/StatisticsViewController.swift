@@ -12,11 +12,13 @@ import CoreData
 
 class StatisticsViewController: UIViewController {
     
-    var attempts: Array<Attempt> = Array()
-    
     // MARK: UI properties
     
     let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+    
+    // MARK: Private properties
+    
+    private var attempts: Array<Attempt> = Array()
     
     // MARK: Date properties
     
@@ -41,6 +43,23 @@ class StatisticsViewController: UIViewController {
     // MARK: Core Data properties
     
     var authToken: String?
+    
+    // MARK: Loading the view
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.addSubview(activityIndicator)
+               
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.center = view.center
+        activityIndicator.startAnimating()
+        
+        fetchAuthToken()
+        getRequestListOfAttempts()
+        
+        activityIndicator.stopAnimating()
+    }
     
     // MARK: Core Data methods
     
@@ -106,37 +125,38 @@ class StatisticsViewController: UIViewController {
     // MARK: Private methods
     
     private func getAllResultsForDisplaying(attempts: Array<Attempt>) {
+        var sortedSpeakingRate: [(String, Double)] = []
+        var sortedPronunciation: [(String, Double)] = []
+        
         for item in attempts {
             let startIndex = item.startTime.index(item.startTime.startIndex, offsetBy: 5)
             let endIndex = item.startTime.index(item.startTime.startIndex, offsetBy: 10)
             
             dates.append(String(item.startTime[startIndex..<endIndex]))
             
-            speakingRate.append(item.speakingRate)
             speakingRateTarget.append(135.0)
-            
-            pronunciation.append(item.correctness * 100)
             pronunciationTarget.append(85.0)
+            
+            sortedSpeakingRate.append((String(item.startTime[startIndex..<endIndex]), item.speakingRate))
+            sortedPronunciation.append((String(item.startTime[startIndex..<endIndex]), item.correctness * 100))
+        }
+        
+        sortedSpeakingRate.sort(by: {$0.0 < $1.0})
+        sortedPronunciation.sort(by: {$0.0 < $1.0})
+        
+        dates.sort(by: {$0 < $1})
+        
+        for item in sortedSpeakingRate {
+            speakingRate.append(item.1)
+        }
+        
+        for item in sortedPronunciation {
+            pronunciation.append(item.1)
         }
         
         customizeChartSpeakingRate(target: speakingRateTarget, dataPoints: dates, values: speakingRate.map{ Double($0) })
         customizeChartPronunciation(target: pronunciationTarget, dataPoints: dates, values: pronunciation.map{ Double($0) })
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.addSubview(activityIndicator)
-               
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.center = view.center
-        activityIndicator.startAnimating()
-        
-        fetchAuthToken()
-        getRequestListOfAttempts()
-    }
-    
-    // MARK: Private function
     
     func customizeChartSpeakingRate(target: [Double], dataPoints: [String], values: [Double]) {
         
