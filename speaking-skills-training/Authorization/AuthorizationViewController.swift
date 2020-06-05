@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AuthorizationViewController: UIViewController, UITextFieldDelegate {
+class AuthorizationViewController: UIViewController, UITextFieldDelegate, ViewControllerPresentTrait {
     
     // MARK: Properties
     
@@ -25,7 +25,7 @@ class AuthorizationViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signUp(_ sender: Any) {
-        addTransitionBetweenViewControllers(nameStoryBoard: "Registration", identifierController: "Registration")
+        self.presentViewController(nameStoryBoard: "Registration", identifierController: "Registration")
     }
     
     // MARK: Private methods
@@ -69,7 +69,7 @@ class AuthorizationViewController: UIViewController, UITextFieldDelegate {
                             
                             DispatchQueue.main.async {
                                 self.save(token: dict!["token"]!)
-                                self.addTransitionBetweenViewControllers(nameStoryBoard: "Account", identifierController: "App")
+                                self.presentViewController(nameStoryBoard: "Account", identifierController: "App")
                             }
                         }
                     }
@@ -119,16 +119,6 @@ class AuthorizationViewController: UIViewController, UITextFieldDelegate {
         alertController.addAction(okAction)
         
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func addTransitionBetweenViewControllers(nameStoryBoard: String, identifierController: String) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: nameStoryBoard, bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: identifierController)
-        
-        newViewController.modalPresentationStyle = .fullScreen
-        newViewController.modalTransitionStyle = .flipHorizontal
-        
-        self.present(newViewController, animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

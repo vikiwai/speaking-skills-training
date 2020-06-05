@@ -663,6 +663,9 @@
                                 <state key="normal" title="Help">
                                     <color key="titleColor" red="0.4346025402" green="0.092095883789999999" blue="0.44219559590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTappedHelpButton:" destination="oem-HD-S87" eventType="touchUpInside" id="5Dn-5S-OHa"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="If you have any questions -&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-Yx-vcY">
                                 <rect key="frame" x="37" y="555" width="216" height="21"/>
@@ -706,6 +709,9 @@
                                 <state key="normal" title="Log out">
                                     <color key="titleColor" red="0.56347515329795805" green="0.18851609396963417" blue="0.1475768605358094" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTappedLogOutButton:" destination="oem-HD-S87" eventType="touchUpInside" id="pix-bk-QRd"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.76590330279999996" blue="0.86434232789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -714,6 +720,13 @@
                     <tabBarItem key="tabBarItem" title="Account" image="person.crop.circle.fill" catalog="system" selectedImage="person.crop.circle.fill" id="IgB-P4-7RR">
                         <color key="badgeColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="emailLabel" destination="Efk-4c-Wpg" id="BOd-ny-wme"/>
+                        <outlet property="helpButton" destination="wyO-gH-JrT" id="GeX-od-e4w"/>
+                        <outlet property="logOutButton" destination="9PH-2M-BCD" id="bAu-QI-IZS"/>
+                        <outlet property="registrationDateLabel" destination="vg5-kL-g64" id="mEZ-1r-YjN"/>
+                        <outlet property="userLabel" destination="sNM-m3-9Yz" id="KFX-Bs-dfA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u9n-VM-b06" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

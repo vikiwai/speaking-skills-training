@@ -10,6 +10,20 @@ import UIKit
 
 class AccountViewController: UIViewController {
 
+    @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var registrationDateLabel: UILabel!
+    
+    @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
+    
+    @IBAction func didTappedLogOutButton(_ sender: Any) {
+    }
+    
+    @IBAction func didTappedHelpButton(_ sender: Any) {
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

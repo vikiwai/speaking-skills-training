@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class RegistrationViewController: UIViewController, UITextFieldDelegate {
+final class RegistrationViewController: UIViewController,
+UITextFieldDelegate,
+ViewControllerPresentTrait {
     
     // MARK: Properties
     
@@ -20,40 +22,47 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var reenteredPasswordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
-    var authToken: NSManagedObject!
+    private var authToken: NSManagedObject!
     
     // MARK: Actions
     
     @IBAction func signUp(_ sender: Any) {
+        
         if passwordCheck() {
             postRequestCreateNewUser()
         }
     }
     
+    // MARK: Loading the view
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
+    }
+    
     // MARK: Private methods
     
     private func passwordCheck() -> Bool {
-        var confirmed = false
-        
         if passwordTextField.text! == reenteredPasswordTextField.text! {
-            confirmed = true
+            return true
         } else {
             DispatchQueue.main.async {
                 self.addAlert(alertTitle: "Passwords don't match",
                               alertMessage: "The entered passwords are different, so registration is not completed")
             }
+            return false
         }
-        
-        return confirmed
     }
     
     private func postRequestCreateNewUser() {
-        var request = URLRequest(url: URL(string: "http://37.230.114.248/User")!)
+        guard let login = loginTextField.text else { return }
+        var request = URLRequest(url: URL(string: BaseURL.url + "/User")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         
         let params: [String: String] = [
-            "login": loginTextField.text!,
+            "login": login,
             "password": passwordTextField.text!,
             "email": emailTextField.text!,
             "name": firstNameTextField.text!,
@@ -65,8 +74,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         do {
             request.httpBody = try encoder.encode(params)
             
-            let config = URLSessionConfiguration.default
-            let session = URLSession(configuration: config)
+            let session = URLSession(configuration: .default)
             
             let task = session.dataTask(with: request) { (responseData, response, responseError) in
                 if responseError != nil {
@@ -74,7 +82,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
+                if let data = responseData,
+                    let utf8Representation = String(data: data, encoding: .utf8) {
                     print("response: ", utf8Representation)
                     
                     if let httpResponse = response as? HTTPURLResponse {
@@ -101,6 +110,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
             print("Something was wrong with post request for registration")
         }
     }
+    
     
     private func postRequestGenerateToken() {
         var request = URLRequest(url: URL(string: "http://37.230.114.248/Auth/login")!)
@@ -141,7 +151,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                             
                             DispatchQueue.main.async {
                                 self.save(token: dict!["token"]!)
-                                self.addTransitionBetweenViewControllers(nameStoryBoard: "Account", identifierController: "App")
+                                self.presentViewController(nameStoryBoard: "Account", identifierController: "App")
                             }
                         }
                     }
@@ -193,16 +203,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func addTransitionBetweenViewControllers(nameStoryBoard: String, identifierController: String) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: nameStoryBoard, bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: identifierController)
-        
-        newViewController.modalPresentationStyle = .fullScreen
-        newViewController.modalTransitionStyle = .flipHorizontal
-        
-        self.present(newViewController, animated: true, completion: nil)
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
         
@@ -213,14 +213,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         }
         
         return true
-    }
-    
-    // MARK: Loading the view
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.hideKeyboardWhenTappedAround()
     }
     
     
@@ -234,4 +226,20 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
      }
      */
     
+}
+
+public protocol ViewControllerPresentTrait where Self: UIViewController {
+    func presentViewController(nameStoryBoard: String, identifierController: String)
+}
+
+public extension ViewControllerPresentTrait {
+    func presentViewController(nameStoryBoard: String, identifierController: String) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: nameStoryBoard, bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: identifierController)
+        
+        newViewController.modalPresentationStyle = .fullScreen
+        newViewController.modalTransitionStyle = .flipHorizontal
+        
+        self.present(newViewController, animated: true, completion: nil)
+    }
 }
