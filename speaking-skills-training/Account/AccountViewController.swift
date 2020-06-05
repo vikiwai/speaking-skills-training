@@ -39,6 +39,8 @@ class AccountViewController: UIViewController {
     // MARK: Loading the view
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         view.addSubview(activityIndicator)
         
         activityIndicator.hidesWhenStopped = true
@@ -47,9 +49,6 @@ class AccountViewController: UIViewController {
         
         fetchAuthToken()
         getRequestUser()
-        
-        super.viewDidLoad()
-         
     }
     
     // MARK: Core Data methods

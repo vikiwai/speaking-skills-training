@@ -14,6 +14,10 @@ class StatisticsViewController: UIViewController {
     
     var attempts: Array<Attempt> = Array()
     
+    // MARK: UI properties
+    
+    let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+    
     // MARK: Date properties
     
     var dates: Array<String> = Array()
@@ -121,6 +125,12 @@ class StatisticsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(activityIndicator)
+               
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.center = view.center
+        activityIndicator.startAnimating()
         
         fetchAuthToken()
         getRequestListOfAttempts()
