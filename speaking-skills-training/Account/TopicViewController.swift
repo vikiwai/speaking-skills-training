@@ -289,7 +289,13 @@ class TopicViewController: UIViewController, AVAudioRecorderDelegate {
             var pitchVoicing: Double
         }
         
-        let params: CreateAttemptRequest = CreateAttemptRequest(topicId: id, speakingRate: 123.4, startTime: startTime!, finishTime: finishTime!, ext: ext, recording: recording!, pronouncedText: pronouncedText!, correctness: correctness!, averagePause: 87.2, shimmer: 1, jitter: 1, pitchVoicing: 1);
+        let valueSpeakingRate = Double.random(in: 120..<140)
+        let valuePause = Double.random(in: 0.9..<4.2)
+        let valuePitch = Double.random(in: 0.0..<1.0)
+        let valueJitter = Double.random(in: 0.0..<1.0)
+        let valueShimmer = Double.random(in: 0.0..<1.0)
+        
+        let params: CreateAttemptRequest = CreateAttemptRequest(topicId: id, speakingRate: valueSpeakingRate, startTime: startTime!, finishTime: finishTime!, ext: ext, recording: recording!, pronouncedText: pronouncedText!, correctness: correctness!, averagePause: valuePause, shimmer: valueShimmer, jitter: valueJitter, pitchVoicing: valuePitch);
         
         let encoder = JSONEncoder()
         

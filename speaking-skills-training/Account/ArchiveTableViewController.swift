@@ -455,7 +455,7 @@ class ArchiveTableViewController: UIViewController, UITableViewDelegate, UITable
         
         cell.scoreLabel.text = "Score for \(attempt.id) attempt (\(attempt.startTime.prefix(10)))"
         cell.correctSpokenTextLabel.text = "Pronounced text: " + String(format: "%.2f", attempt.correctness * 100) + " %"
-        cell.correctPausesLabel.text = "Correct pauses: " + String(format: "%.2f", attempt.averagePause) + " % of time"
+        cell.correctPausesLabel.text = "Average pause duration: " + String(format: "%.2f", attempt.averagePause) + " seconds"
         cell.speechSpeedLabel.text = "Speech speed: " + String(format: "%.1f", attempt.speakingRate) + " words per minute"
         
         //cell.vocabularyLevelLabel.text = checkVocabularyLevel(text: attempt.originalText)

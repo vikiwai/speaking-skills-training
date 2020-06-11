@@ -720,6 +720,7 @@
                                 </state>
                                 <connections>
                                     <action selector="didTappedLogOutButton:" destination="oem-HD-S87" eventType="touchUpInside" id="pix-bk-QRd"/>
+                                    <segue destination="w4Y-aA-vCW" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="xNs-LI-5Ad"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -776,6 +777,14 @@
             </objects>
             <point key="canvasLocation" x="548" y="886.50674662668678"/>
         </scene>
+        <!--Authorization-->
+        <scene sceneID="geN-SU-EJN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Authorization" id="w4Y-aA-vCW" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zfe-df-DrV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1305" y="773"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ZYL-ae-QbP">
             <objects>
@@ -785,7 +794,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.69906680258262699" green="0.64917343657714333" blue="0.67468628562432309" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" red="0.39015825650000002" green="0.14416303459999999" blue="0.44782215440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>

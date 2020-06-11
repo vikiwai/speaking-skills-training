@@ -128,6 +128,10 @@ class StatisticsViewController: UIViewController {
         var sortedSpeakingRate: [(String, Double)] = []
         var sortedPronunciation: [(String, Double)] = []
         
+        if attempts.count == 1 && attempts.count == 0 {
+            return
+        }
+        
         for item in attempts {
             let startIndex = item.startTime.index(item.startTime.startIndex, offsetBy: 5)
             let endIndex = item.startTime.index(item.startTime.startIndex, offsetBy: 10)

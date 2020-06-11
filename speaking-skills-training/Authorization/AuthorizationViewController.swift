@@ -140,6 +140,8 @@ class AuthorizationViewController: UIViewController, UITextFieldDelegate, ViewCo
         
         self.hideKeyboardWhenTappedAround()
         self.modalPresentationStyle = .fullScreen
+        
+        passwordTextField.isSecureTextEntry = true
     }
     
     

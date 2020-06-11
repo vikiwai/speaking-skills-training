@@ -39,6 +39,8 @@ ViewControllerPresentTrait {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
+        passwordTextField.isSecureTextEntry = true
+        reenteredPasswordTextField.isSecureTextEntry = true
     }
     
     // MARK: Private methods
